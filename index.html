@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cardiac Media</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #0d0d0d;
+    color: #fff;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 48px;
+    border-bottom: 0.5px solid #222;
+    position: sticky;
+    top: 0;
+    background: rgba(13, 13, 13, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 100;
+  }
+  .logo-box {
+    border: 1.5px solid #888;
+    padding: 6px 14px 4px;
+    cursor: pointer;
+  }
+  .logo-word {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 6px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+  }
+  .logo-d {
+    display: inline-block;
+    width: 14px;
+    height: 20px;
+    border: 2px solid #fff;
+    border-left: none;
+    border-radius: 0 3px 3px 0;
+    margin: 0 1px;
+    vertical-align: middle;
+  }
+  .logo-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 9px;
+    letter-spacing: 8px;
+    color: #888;
+    text-align: center;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+  }
+  .logo-sub::before, .logo-sub::after {
+    content: '';
+    display: block;
+    height: 0.5px;
+    width: 16px;
+    background: #555;
+  }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: #888;
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+  .nav-links a:hover { color: #75fb7a; }
+
+  /* MOBILE MENU TOGGLE */
+  .menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: #fff;
+    transition: all 0.3s;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 120px 48px 100px;
+    position: relative;
+    border-bottom: 0.5px solid #1a1a1a;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #75fb7a;
+    margin-bottom: 28px;
+  }
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(52px, 7vw, 88px);
+    line-height: 1;
+    letter-spacing: -1px;
+    margin-bottom: 24px;
+    color: #fff;
+  }
+  h1 span { color: #75fb7a; }
+  .hero-sub {
+    font-size: 20px;
+    color: #888;
+    max-width: 480px;
+    margin-bottom: 48px;
+    font-weight: 300;
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: #75fb7a;
+    color: #0d0d0d;
+    padding: 16px 40px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .hero-cta:hover { opacity: 0.88; }
+  .hero-rule {
+    position: absolute;
+    right: 48px;
+    top: 120px;
+    bottom: 100px;
+    width: 0.5px;
+    background: #1e1e1e;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .hero-side-text {
+    writing-mode: vertical-lr;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #333;
+    text-transform: uppercase;
+    padding: 24px 0;
+  }
+
+  /* SECTIONS */
+  section { padding: 80px 48px; border-bottom: 0.5px solid #1a1a1a; scroll-margin-top: 80px; }
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #75fb7a;
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-label::after {
+    content: '';
+    display: block;
+    height: 0.5px;
+    width: 48px;
+    background: #75fb7a;
+  }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .service-item {
+    padding: 32px;
+    border: 0.5px solid #1e1e1e;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .service-item:hover { border-color: #75fb7a; background: #111; }
+  .service-num {
+    font-size: 10px;
+    color: #333;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+  }
+  .service-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .service-desc { font-size: 13px; color: #666; line-height: 1.7; }
+  .service-accent {
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: #75fb7a;
+    margin-top: 24px;
+    transition: width 0.3s;
+  }
+  .service-item:hover .service-accent { width: 48px; }
+
+  /* WHY */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  h2.why-h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 1.05;
+    color: #fff;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  h2.why-h2 span { color: #75fb7a; }
+  .why-body { font-size: 15px; color: #777; line-height: 1.9; margin-bottom: 16px; }
+  .why-points { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
+  .why-point { display: flex; align-items: flex-start; gap: 16px; font-size: 14px; color: #999; }
+  .why-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #75fb7a; margin-top: 7px; flex-shrink: 0;
+  }
+  .stat-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #1a1a1a;
+    border: 0.5px solid #1a1a1a;
+  }
+  .stat {
+    background: #0d0d0d;
+    padding: 40px 32px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 52px;
+    color: #75fb7a;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #555; }
+
+  /* ABOUT / STORY */
+  .story-wrap { max-width: 760px; }
+
+  h2.story-h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(40px, 5vw, 60px);
+    line-height: 1.05;
+    color: #fff;
+    margin-bottom: 36px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  h2.story-h2 span { color: #75fb7a; }
+
+  .story-body {
+    font-size: 17px;
+    color: #aaa;
+    line-height: 1.85;
+    margin-bottom: 24px;
+    font-weight: 300;
+  }
+  .story-body strong { color: #fff; font-weight: 600; }
+
+  .pullquote {
+    border-left: 2px solid #75fb7a;
+    padding: 8px 0 8px 28px;
+    margin: 40px 0;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+  }
+
+  /* CONTACT */
+  .contact-band { padding: 100px 48px; text-align: center; scroll-margin-top: 80px; }
+  .contact-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #75fb7a;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+  .contact-label::before, .contact-label::after {
+    content: '';
+    display: block;
+    height: 0.5px;
+    width: 48px;
+    background: #75fb7a;
+  }
+  h2.contact-h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 56px;
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  h2.contact-h2 span { color: #75fb7a; }
+  .contact-sub { font-size: 15px; color: #555; margin-bottom: 48px; font-style: italic; }
+  .contact-email {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .contact-email:hover { color: #75fb7a; border-color: #75fb7a; }
+  .contact-note { margin-top: 24px; font-size: 12px; color: #444; letter-spacing: 1px; }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 48px;
+    border-top: 0.5px solid #1a1a1a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-copy { font-size: 11px; color: #333; letter-spacing: 1px; }
+  .footer-name { font-size: 11px; color: #444; letter-spacing: 1px; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 18px 24px; }
+    .nav-links {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(13, 13, 13, 0.98);
+      backdrop-filter: blur(10px);
+      flex-direction: column;
+      gap: 0;
+      padding: 0;
+      border-bottom: 0.5px solid #222;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .nav-links.open { max-height: 400px; }
+    .nav-links li {
+      width: 100%;
+      border-top: 0.5px solid #1a1a1a;
+    }
+    .nav-links a {
+      display: block;
+      padding: 18px 24px;
+      font-size: 13px;
+    }
+    .menu-toggle { display: flex; }
+    .menu-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .menu-toggle.open span:nth-child(2) { opacity: 0; }
+    .menu-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .hero { padding: 80px 24px 60px; }
+    .hero-rule { display: none; }
+    .hero-sub { font-size: 17px; }
+
+    section { padding: 60px 24px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; gap: 48px; }
+    .stat-num { font-size: 42px; }
+    .pullquote { font-size: 20px; padding-left: 20px; }
+    .story-body { font-size: 16px; }
+    .contact-band { padding: 60px 24px; }
+    h2.contact-h2 { font-size: 42px; }
+    .contact-email { font-size: 22px; }
+    footer { padding: 24px; flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#top" style="text-decoration:none;">
+    <div class="logo-box">
+      <div class="logo-word">CAR<span class="logo-d"></span>IAC</div>
+      <div class="logo-sub">MEDIA</div>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="hero" id="top">
+  <p class="eyebrow">Cardiac Media — Creative. Technical. Strategic.</p>
+  <h1>You have problems.<br>We have <span>answers.</span></h1>
+  <p class="hero-sub">So. What are we building?</p>
+  <a class="hero-cta" href="#contact">Let's Talk →</a>
+  <div class="hero-rule">
+    <span class="hero-side-text">15 Years in the Field</span>
+  </div>
+</div>
+
+<section id="services">
+  <div class="section-label">What We Do</div>
+  <div class="services-grid">
+    <div class="service-item">
+      <div class="service-num">01</div>
+      <div class="service-title">Graphic Design</div>
+      <div class="service-desc">Brand identity, logos, print, digital assets, and event graphics.</div>
+      <span class="service-accent"></span>
+    </div>
+    <div class="service-item">
+      <div class="service-num">02</div>
+      <div class="service-title">Video Production</div>
+      <div class="service-desc">Concept through delivery — promotional content, event recaps, sermon series, and more.</div>
+      <span class="service-accent"></span>
+    </div>
+    <div class="service-item">
+      <div class="service-num">03</div>
+      <div class="service-title">Live Production</div>
+      <div class="service-desc">Lighting, audio, and video for events of any scale.</div>
+      <span class="service-accent"></span>
+    </div>
+    <div class="service-item">
+      <div class="service-num">04</div>
+      <div class="service-title">Website Design</div>
+      <div class="service-desc">Strategy, design, and build — sites that are functional and represent your brand well.</div>
+      <span class="service-accent"></span>
+    </div>
+    <div class="service-item">
+      <div class="service-num">05</div>
+      <div class="service-title">Consulting</div>
+      <div class="service-desc">AI adoption, systems integration, software audits, creative direction, and workflow optimization.</div>
+      <span class="service-accent"></span>
+    </div>
+    <div class="service-item">
+      <div class="service-num">06</div>
+      <div class="service-title">Team Training</div>
+      <div class="service-desc">Hands-on training for your team across any of our service areas.</div>
+      <span class="service-accent"></span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="why-grid">
+    <div>
+      <div class="section-label">Why Cardiac Media</div>
+      <h2 class="why-h2">We can<br><span>do it all.</span></h2>
+      <p class="why-body">Most organizations piece together a handful of vendors to cover what we handle in a single conversation. After 15 years across ministry environments and commercial productions, we've seen just about every challenge — and solved most of them.</p>
+      <p class="why-body">We bring the hands-on experience, the strategic thinking, and the right people to make it happen. And when the project wraps, your team is better equipped than when we started.</p>
+      <div class="why-points">
+        <div class="why-point"><div class="why-dot"></div><span>Deep ministry roots — and growing reach beyond them</span></div>
+        <div class="why-point"><div class="why-dot"></div><span>Real production experience behind every recommendation</span></div>
+        <div class="why-point"><div class="why-dot"></div><span>A trusted network of collaborators, not just one person</span></div>
+      </div>
+    </div>
+    <div class="stat-block">
+      <div class="stat">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Years in the field</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Service areas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1</div>
+        <div class="stat-label">Call to get started</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Problems we can solve</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="story-wrap">
+    <div class="section-label">The Name</div>
+    <h2 class="story-h2">Why <span>Cardiac.</span></h2>
+
+    <p class="story-body">Cardiac Media didn't start with a business plan. It started with a mentor.</p>
+
+    <p class="story-body"><strong>Kevin Knight</strong> was the person who showed me what was possible beyond what I already knew. He introduced me to media, to technology, and to the idea that creativity and technical skill could live in the same person. He had a nickname from his college days — Cardiac — earned because of a heart condition he carried. He wore it like a badge and named his company Cardiac Productions.</p>
+
+    <p class="story-body">Kevin passed away in 2007 from H1N1. He left behind a legacy bigger than any production he ever ran.</p>
+
+    <p class="story-body">After he was gone, I reached out to his wife Joanna and asked if I could carry the name forward. She said yes. I changed Productions to Media — because what I do has grown into something broader than any one category — but the name took on something more than a tribute in the process.</p>
+
+    <div class="pullquote">Cardiac means heart. And for me, this work has always been a matter of the heart.</div>
+
+    <p class="story-body">Serving people, helping organizations communicate better, equipping teams to do more than they thought they could — that's not just a job description. It's why I do this. Ministry has a word for that kind of calling, and I've never found a better one.</p>
+
+    <p class="story-body">The name carries Kevin's memory. It also carries the reason I keep showing up.</p>
+  </div>
+</section>
+
+<section>
+  <div class="story-wrap">
+    <div class="section-label">The Founder</div>
+    <h2 class="story-h2">Bruce <span>Blair.</span></h2>
+
+    <p class="story-body">I grew up a preacher's kid in the Church of God, traveling with my dad, <strong>David Blair</strong> — a do-it-all kind of man who never waited for someone else to handle something when he could figure it out himself. Those early years on the road with him — running his PowerPoints, setting up sound, troubleshooting whatever needed troubleshooting — were my real education. He's the one who got me started, and he's the reason I still care about doing a great job every single time. He passed away in 2021 from COVID, and his legacy is something I carry into every project.</p>
+
+    <p class="story-body">The work has taken me across the country — Arkansas, Kentucky, Maryland, Georgia, and now Tennessee — and across just about every role you can have in media and production. Over 15 years I've run lights, mixed audio, edited video, built websites, managed social media, directed creative, and consulted on systems and workflows for organizations of all sizes.</p>
+
+    <p class="story-body">Most of that work has been alongside ministries and the Church of God denomination. Those relationships shaped how I work — with care, with commitment, and with the understanding that what happens behind the scenes matters just as much as what shows up on the stage.</p>
+
+    <p class="story-body">These days I spend most of my time consulting, training teams, and helping organizations figure out how to work smarter — whether that means adopting new tools, fixing broken workflows, or building the internal capacity to stop outsourcing everything.</p>
+
+    <p class="story-body">I'm married to <strong>KaLea</strong>. We have a son named <strong>Charlie</strong>, and another one on the way this October.</p>
+
+    <div class="pullquote">If you've made it this far — let's talk.</div>
+  </div>
+</section>
+
+<section class="contact-band" id="contact">
+  <div class="contact-label">Let's Talk</div>
+  <h2 class="contact-h2">Ready to <span>build something?</span></h2>
+  <p class="contact-sub">No pitch. No pressure. Just a conversation about what you need.</p>
+  <a class="contact-email" href="mailto:icardiacmedia@gmail.com">icardiacmedia@gmail.com</a>
+  <p class="contact-note">We'll get back to you within one business day.</p>
+</section>
+
+<footer>
+  <div class="footer-copy">© 2025 Cardiac Media LLC</div>
+  <div class="footer-name">Bruce Blair — Founder</div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    links.classList.toggle('open');
+  });
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      toggle.classList.remove('open');
+      links.classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>
