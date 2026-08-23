@@ -3,601 +3,461 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cardiac Media</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<title>Cardiac Media — Creative. Technical. Strategic.</title>
+<meta name="description" content="Fifteen years of graphic design, video production, live production, website design, consulting, and team training. Handled in a single conversation instead of five vendors.">
+<meta property="og:title" content="Cardiac Media — Creative. Technical. Strategic.">
+<meta property="og:description" content="You have problems. We have answers. Fifteen years in the field.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cardiac.media/">
+<meta property="og:image" content="https://cardiac.media/img/hero.jpg">
+<meta name="theme-color" content="#171721">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --onyx: #171721;
+    --graphite: #1e1e2a;
+    --obsidian: #272735;
+    --slate: #70707d;
+    --ash: #c3c3cc;
+    --ivory: #ededf3;
+    --green: #75fb7a;
+    --display: 'Barlow Condensed', 'Barlow', sans-serif;
+    --body: 'Instrument Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --page: 1200px;
+    --gutter: clamp(20px, 5vw, 120px);
+    --section: clamp(64px, 9vw, 112px);
+  }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body {
-    background: #0d0d0d;
-    color: #fff;
-    font-family: 'Barlow', sans-serif;
-    font-weight: 300;
-    line-height: 1.6;
+    background: var(--onyx);
+    color: var(--ivory);
+    font-family: var(--body);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    overflow-x: hidden;
   }
+  img { max-width: 100%; display: block; }
+  a { color: var(--ivory); text-decoration: none; }
+  ::selection { background: var(--green); color: var(--onyx); }
+  :focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
 
-  /* NAV */
+  .wrap { max-width: var(--page); margin: 0 auto; }
+  .label {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.12px;
+    text-transform: uppercase; color: var(--ash); margin-bottom: 20px;
+  }
+  h1, h2, h3 {
+    font-family: var(--display); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  h1 { font-size: clamp(40px, 7.4vw, 65px); line-height: 1.05; letter-spacing: 0.5px; color: #fff; }
+  h2 { font-size: clamp(30px, 4.6vw, 42px); line-height: 1.1; }
+  h3 { font-size: clamp(22px, 2.6vw, 28px); line-height: 1.15; }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--body); font-size: 16px; font-weight: 500;
+    min-height: 52px; padding: 0 32px; border-radius: 32px;
+    border: 1px solid transparent; cursor: pointer;
+    transition: opacity .18s ease, background-color .18s ease, color .18s ease;
+  }
+  .btn-primary { background: var(--green); color: var(--onyx); }
+  .btn-primary:hover { opacity: .87; }
+  .btn-ghost { border-color: var(--ivory); color: var(--ivory); border-radius: 40px; }
+  .btn-ghost:hover { background: var(--ivory); color: var(--onyx); }
+
+  /* ---------- logo ---------- */
+  .cm path { fill: none; stroke: currentColor; stroke-linecap: butt; stroke-linejoin: miter; }
+  .cm { width: 178px; height: auto; display: block; }
+  .draw path { stroke-dasharray: 100; stroke-dashoffset: 100; animation: drawOn 1.5s ease-in-out forwards; }
+  .draw .f-box { animation-delay: .05s }  .draw .f-c1 { animation-delay: .50s }
+  .draw .f-a1  { animation-delay: .60s }  .draw .f-r  { animation-delay: .70s }
+  .draw .f-d   { animation-delay: .80s }  .draw .f-i  { animation-delay: .90s }
+  .draw .f-a2  { animation-delay: 1.00s } .draw .f-c2 { animation-delay: 1.10s }
+  .draw .f-sub { animation-delay: 1.35s }
+  @keyframes drawOn { to { stroke-dashoffset: 0 } }
+
+  /* ---------- nav ---------- */
   nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 24px 48px;
-    border-bottom: 0.5px solid #222;
-    position: sticky;
-    top: 0;
-    background: rgba(13, 13, 13, 0.92);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    z-index: 100;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px; padding: 20px var(--gutter);
+    transition: background-color .25s ease, backdrop-filter .25s ease, border-color .25s ease;
+    border-bottom: 1px solid transparent;
   }
-  .logo-box {
-    border: 1.5px solid #888;
-    padding: 6px 14px 4px;
-    cursor: pointer;
+  nav.scrolled {
+    background: rgba(23,23,33,.82);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom-color: var(--obsidian);
   }
-  .logo-word {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 22px;
-    letter-spacing: 6px;
-    color: #fff;
-    display: flex;
-    align-items: center;
-  }
-  .logo-d {
-    display: inline-block;
-    width: 14px;
-    height: 20px;
-    border: 2px solid #fff;
-    border-left: none;
-    border-radius: 0 3px 3px 0;
-    margin: 0 1px;
-    vertical-align: middle;
-  }
-  .logo-sub {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 600;
-    font-size: 9px;
-    letter-spacing: 8px;
-    color: #888;
-    text-align: center;
-    margin-top: 2px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    justify-content: center;
-  }
-  .logo-sub::before, .logo-sub::after {
-    content: '';
-    display: block;
-    height: 0.5px;
-    width: 16px;
-    background: #555;
-  }
-  .nav-links {
-    display: flex;
-    gap: 36px;
-    list-style: none;
-  }
+  .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
   .nav-links a {
-    color: #888;
-    text-decoration: none;
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    transition: color 0.2s;
-    cursor: pointer;
+    display: block; font-size: 16px; padding: 0 20px; line-height: 40px;
+    border-radius: 40px; color: var(--ivory); transition: background-color .18s ease;
   }
-  .nav-links a:hover { color: #75fb7a; }
-
-  /* MOBILE MENU TOGGLE */
+  .nav-links a:hover { background: rgba(237,237,243,.10); }
+  .nav-cta { display: flex; align-items: center; }
+  .nav-cta .btn { min-height: 44px; padding: 0 24px; }
   .menu-toggle {
-    display: none;
-    background: transparent;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    padding: 8px;
-    flex-direction: column;
-    gap: 5px;
+    display: none; width: 48px; height: 48px; flex: 0 0 48px;
+    border: 1px solid var(--ivory); border-radius: 40px; background: transparent;
+    cursor: pointer; align-items: center; justify-content: center;
   }
   .menu-toggle span {
-    display: block;
-    width: 24px;
-    height: 1.5px;
-    background: #fff;
-    transition: all 0.3s;
+    display: block; width: 18px; height: 1.5px; background: var(--ivory);
+    position: relative; transition: transform .25s ease, opacity .25s ease;
+  }
+  .menu-toggle span::before, .menu-toggle span::after {
+    content: ''; position: absolute; left: 0; width: 18px; height: 1.5px;
+    background: var(--ivory); transition: transform .25s ease;
+  }
+  .menu-toggle span::before { top: -6px } .menu-toggle span::after { top: 6px }
+  .menu-toggle[aria-expanded="true"] span { background: transparent }
+  .menu-toggle[aria-expanded="true"] span::before { transform: translateY(6px) rotate(45deg) }
+  .menu-toggle[aria-expanded="true"] span::after  { transform: translateY(-6px) rotate(-45deg) }
+
+  /* ---------- hero ---------- */
+  .hero { position: relative; min-height: 100svh; display: grid; place-items: center; overflow: hidden; }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: url(img/hero.jpg) center 40% / cover no-repeat;
+    filter: saturate(.72);
+  }
+  .hero-bg::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(23,23,33,.80) 0%, rgba(23,23,33,.42) 40%, rgba(23,23,33,.99) 100%);
+  }
+  .hero-inner {
+    position: relative; text-align: center; padding: 140px var(--gutter) 80px;
+    max-width: 820px;
+  }
+  .hero p {
+    font-size: clamp(16px, 2vw, 18px); font-weight: 500; line-height: 1.35;
+    color: var(--ivory); max-width: 520px; margin: 24px auto 40px;
+  }
+  .hero-actions { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+  .rise { animation: rise 1s cubic-bezier(.22,.61,.36,1) both }
+  .rise-1 { animation-delay: .5s } .rise-2 { animation-delay: .7s } .rise-3 { animation-delay: .9s }
+  @keyframes rise { from { opacity: 0; transform: translateY(18px) } to { opacity: 1; transform: none } }
+
+  /* ---------- sections ---------- */
+  section { padding: var(--section) var(--gutter) 0; scroll-margin-top: 88px; }
+  section:last-of-type { padding-bottom: var(--section) }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 72px); align-items: center; }
+  .card { background: var(--graphite); border-radius: 12px; padding: 32px; }
+
+  .work-card { background: var(--graphite); border-radius: 12px; overflow: hidden; }
+  .work-card img { width: 100%; height: 240px; object-fit: cover; filter: saturate(.8); transition: transform .5s ease; }
+  .work-card:hover img { transform: scale(1.04) }
+  .work-meta { padding: 24px 24px 28px }
+  .work-meta h3 { font-size: 21px; letter-spacing: .5px; margin-bottom: 4px }
+  .work-meta span { font-size: 14px; color: var(--slate) }
+  .caption { font-size: 12px; color: var(--slate); margin-top: 16px }
+
+  .svc h3 { margin-bottom: 12px }
+  .svc .num { font-size: 12px; font-weight: 600; letter-spacing: .12px; color: var(--slate); margin-bottom: 24px }
+  .svc p, .why p { color: var(--ash) }
+  .why p + p { margin-top: 16px }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px }
+  .stat .n { font-family: var(--display); font-weight: 700; font-size: clamp(34px, 4.4vw, 46px); line-height: 1.05; margin-bottom: 8px }
+  .stat .l { font-size: 14px; color: var(--ash) }
+
+  .name-card { padding: clamp(32px, 5vw, 72px) }
+  .name-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: start }
+  .name-grid p { color: var(--ash) }
+  .name-grid p + p { margin-top: 16px }
+  .pull {
+    border-left: 1px solid var(--slate); padding-left: 32px;
+    font-family: var(--display); font-weight: 500; font-size: 21px; line-height: 1.35;
+    color: var(--ivory); text-transform: none; letter-spacing: 0;
   }
 
-  /* HERO */
-  .hero {
-    padding: 120px 48px 100px;
-    position: relative;
-    border-bottom: 0.5px solid #1a1a1a;
+  /* ---------- form ---------- */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(32px, 6vw, 72px); align-items: start }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px }
+  .field { margin-bottom: 12px }
+  .field label {
+    display: block; font-size: 12px; font-weight: 600; letter-spacing: .12px;
+    text-transform: uppercase; color: var(--ash); margin-bottom: 8px;
   }
-  .eyebrow {
-    font-size: 11px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: #75fb7a;
-    margin-bottom: 28px;
+  .field input, .field select, .field textarea {
+    width: 100%; font-family: var(--body); font-size: 16px; color: var(--ivory);
+    background: var(--obsidian); border: 1px solid transparent; border-radius: 12px;
+    padding: 14px 18px; transition: border-color .18s ease;
   }
-  h1 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: clamp(52px, 7vw, 88px);
-    line-height: 1;
-    letter-spacing: -1px;
-    margin-bottom: 24px;
-    color: #fff;
-  }
-  h1 span { color: #75fb7a; }
-  .hero-sub {
-    font-size: 20px;
-    color: #888;
-    max-width: 480px;
-    margin-bottom: 48px;
-    font-weight: 300;
-    line-height: 1.6;
-    font-style: italic;
-  }
-  .hero-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    background: #75fb7a;
-    color: #0d0d0d;
-    padding: 16px 40px;
-    font-family: 'Barlow', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: opacity 0.2s;
-  }
-  .hero-cta:hover { opacity: 0.88; }
-  .hero-rule {
-    position: absolute;
-    right: 48px;
-    top: 120px;
-    bottom: 100px;
-    width: 0.5px;
-    background: #1e1e1e;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  .hero-side-text {
-    writing-mode: vertical-lr;
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: #333;
-    text-transform: uppercase;
-    padding: 24px 0;
-  }
+  .field textarea { min-height: 150px; resize: vertical; border-radius: 12px }
+  .field input::placeholder, .field textarea::placeholder { color: var(--slate) }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--green) }
+  .field select { appearance: none; cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c3c3cc' stroke-width='1.4' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 18px center; padding-right: 44px }
+  .field select option { background: var(--obsidian); color: var(--ivory) }
+  .form-note { font-size: 12px; color: var(--slate); margin-top: 16px }
+  .hp { position: absolute; left: -9999px; opacity: 0; height: 0; width: 0 }
+  form .btn { width: 100%; margin-top: 8px }
 
-  /* SECTIONS */
-  section { padding: 80px 48px; border-bottom: 0.5px solid #1a1a1a; scroll-margin-top: 80px; }
-  .section-label {
-    font-size: 10px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: #75fb7a;
-    margin-bottom: 48px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  .contact-side .email {
+    display: inline-block; font-size: clamp(16px, 2vw, 18px); color: var(--green);
+    border-bottom: 1px solid rgba(117,251,122,.35); padding-bottom: 2px; margin-top: 8px;
   }
-  .section-label::after {
-    content: '';
-    display: block;
-    height: 0.5px;
-    width: 48px;
-    background: #75fb7a;
-  }
+  .contact-side .email:hover { border-bottom-color: var(--green) }
 
-  /* SERVICES */
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .service-item {
-    padding: 32px;
-    border: 0.5px solid #1e1e1e;
-    transition: border-color 0.2s, background 0.2s;
-  }
-  .service-item:hover { border-color: #75fb7a; background: #111; }
-  .service-num {
-    font-size: 10px;
-    color: #333;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
-    font-family: 'Barlow Condensed', sans-serif;
-  }
-  .service-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 600;
-    font-size: 22px;
-    letter-spacing: 1px;
-    color: #fff;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-  }
-  .service-desc { font-size: 13px; color: #666; line-height: 1.7; }
-  .service-accent {
-    display: block;
-    width: 24px;
-    height: 1px;
-    background: #75fb7a;
-    margin-top: 24px;
-    transition: width 0.3s;
-  }
-  .service-item:hover .service-accent { width: 48px; }
-
-  /* WHY */
-  .why-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-  h2.why-h2 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 48px;
-    line-height: 1.05;
-    color: #fff;
-    margin-bottom: 24px;
-    text-transform: uppercase;
-  }
-  h2.why-h2 span { color: #75fb7a; }
-  .why-body { font-size: 15px; color: #777; line-height: 1.9; margin-bottom: 16px; }
-  .why-points { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
-  .why-point { display: flex; align-items: flex-start; gap: 16px; font-size: 14px; color: #999; }
-  .why-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: #75fb7a; margin-top: 7px; flex-shrink: 0;
-  }
-  .stat-block {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: #1a1a1a;
-    border: 0.5px solid #1a1a1a;
-  }
-  .stat {
-    background: #0d0d0d;
-    padding: 40px 32px;
-    text-align: center;
-  }
-  .stat-num {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 52px;
-    color: #75fb7a;
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-  .stat-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #555; }
-
-  /* ABOUT / STORY */
-  .story-wrap { max-width: 760px; }
-
-  h2.story-h2 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: clamp(40px, 5vw, 60px);
-    line-height: 1.05;
-    color: #fff;
-    margin-bottom: 36px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  h2.story-h2 span { color: #75fb7a; }
-
-  .story-body {
-    font-size: 17px;
-    color: #aaa;
-    line-height: 1.85;
-    margin-bottom: 24px;
-    font-weight: 300;
-  }
-  .story-body strong { color: #fff; font-weight: 600; }
-
-  .pullquote {
-    border-left: 2px solid #75fb7a;
-    padding: 8px 0 8px 28px;
-    margin: 40px 0;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 24px;
-    font-weight: 600;
-    color: #fff;
-    line-height: 1.4;
-    letter-spacing: 0.5px;
-  }
-
-  /* CONTACT */
-  .contact-band { padding: 100px 48px; text-align: center; scroll-margin-top: 80px; }
-  .contact-label {
-    font-size: 10px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: #75fb7a;
-    margin-bottom: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-  }
-  .contact-label::before, .contact-label::after {
-    content: '';
-    display: block;
-    height: 0.5px;
-    width: 48px;
-    background: #75fb7a;
-  }
-  h2.contact-h2 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 56px;
-    color: #fff;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    letter-spacing: 1px;
-    line-height: 1;
-  }
-  h2.contact-h2 span { color: #75fb7a; }
-  .contact-sub { font-size: 15px; color: #555; margin-bottom: 48px; font-style: italic; }
-  .contact-email {
-    display: inline-block;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 600;
-    font-size: 28px;
-    letter-spacing: 2px;
-    color: #fff;
-    text-decoration: none;
-    border-bottom: 1px solid #333;
-    padding-bottom: 8px;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .contact-email:hover { color: #75fb7a; border-color: #75fb7a; }
-  .contact-note { margin-top: 24px; font-size: 12px; color: #444; letter-spacing: 1px; }
-
-  /* FOOTER */
+  /* ---------- footer ---------- */
   footer {
-    padding: 32px 48px;
-    border-top: 0.5px solid #1a1a1a;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    border-top: 1px solid var(--obsidian); margin-top: var(--section);
+    padding: 40px var(--gutter);
   }
-  .footer-copy { font-size: 11px; color: #333; letter-spacing: 1px; }
-  .footer-name { font-size: 11px; color: #444; letter-spacing: 1px; }
+  .foot-inner { max-width: var(--page); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap }
+  .foot-inner .cm { width: 132px; color: var(--slate) }
+  .foot-inner p { font-size: 12px; font-weight: 600; letter-spacing: .12px; color: var(--slate) }
 
-  /* MOBILE */
-  @media (max-width: 768px) {
-    nav { padding: 18px 24px; }
+  /* ---------- responsive ---------- */
+  @media (max-width: 1000px) {
+    .grid-3 { grid-template-columns: repeat(2, minmax(0,1fr)) }
+    .grid-2, .name-grid, .contact-grid { grid-template-columns: 1fr }
+    .pull { border-left: none; border-top: 1px solid var(--slate); padding-left: 0; padding-top: 24px }
+  }
+  @media (max-width: 820px) {
+    .menu-toggle { display: flex }
     .nav-links {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: rgba(13, 13, 13, 0.98);
-      backdrop-filter: blur(10px);
-      flex-direction: column;
-      gap: 0;
-      padding: 0;
-      border-bottom: 0.5px solid #222;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
+      position: fixed; inset: 76px 0 auto; flex-direction: column; align-items: stretch;
+      gap: 0; padding: 8px var(--gutter) 24px;
+      background: rgba(23,23,33,.97); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--obsidian);
+      display: none;
     }
-    .nav-links.open { max-height: 400px; }
-    .nav-links li {
-      width: 100%;
-      border-top: 0.5px solid #1a1a1a;
-    }
-    .nav-links a {
-      display: block;
-      padding: 18px 24px;
-      font-size: 13px;
-    }
-    .menu-toggle { display: flex; }
-    .menu-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-    .menu-toggle.open span:nth-child(2) { opacity: 0; }
-    .menu-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-    .hero { padding: 80px 24px 60px; }
-    .hero-rule { display: none; }
-    .hero-sub { font-size: 17px; }
-
-    section { padding: 60px 24px; }
-    .services-grid { grid-template-columns: 1fr; }
-    .why-grid { grid-template-columns: 1fr; gap: 48px; }
-    .stat-num { font-size: 42px; }
-    .pullquote { font-size: 20px; padding-left: 20px; }
-    .story-body { font-size: 16px; }
-    .contact-band { padding: 60px 24px; }
-    h2.contact-h2 { font-size: 42px; }
-    .contact-email { font-size: 22px; }
-    footer { padding: 24px; flex-direction: column; gap: 12px; }
+    .nav-links.open { display: flex }
+    .nav-links a { line-height: 56px; border-radius: 12px }
+    .nav-cta { display: none }
+    nav { background: rgba(23,23,33,.82); backdrop-filter: blur(20px); }
+  }
+  @media (max-width: 620px) {
+    .grid-3, .stats, .form-row { grid-template-columns: 1fr }
+    .cm { width: 150px }
+    .hero-inner { padding-top: 120px }
+    .card { padding: 24px }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important }
+    .draw path { stroke-dashoffset: 0 }
   }
 </style>
 </head>
 <body>
 
-<nav>
-  <a href="#top" style="text-decoration:none;">
-    <div class="logo-box">
-      <div class="logo-word">CAR<span class="logo-d"></span>IAC</div>
-      <div class="logo-sub">MEDIA</div>
-    </div>
+<nav id="nav">
+  <a href="#top" aria-label="Cardiac Media home">
+    <svg class="cm draw" viewBox="0 0 1440 345" role="img" aria-label="Cardiac Media">
+      <path class="f-box" pathLength="100" stroke-width="12" d="M940,295 H1435 V5 H5 V295 H500"/>
+      <g transform="translate(78,0)">
+        <path class="f-c1" pathLength="100" stroke-width="18" d="M240,65 H150 A85,85 0 0 0 150,235 H240"/>
+        <path class="f-a1" pathLength="100" stroke-width="18" d="M265,235 L340,65 L415,235 M296,166 H384"/>
+        <path class="f-r"  pathLength="100" stroke-width="18" d="M440,235 V65 H545 A50,50 0 0 1 545,165 H440 M528,165 L610,235"/>
+        <path class="f-d"  pathLength="100" stroke-width="18" d="M805,235 V65 H720 A85,85 0 0 0 720,235 H805"/>
+        <path class="f-i"  pathLength="100" stroke-width="18" d="M835,65 V235"/>
+        <path class="f-a2" pathLength="100" stroke-width="18" d="M865,235 L940,65 L1015,235 M896,166 H984"/>
+        <path class="f-c2" pathLength="100" stroke-width="18" d="M1225,65 H1135 A85,85 0 0 0 1135,235 H1225"/>
+      </g>
+      <g transform="translate(560,0)">
+        <path class="f-sub" pathLength="100" stroke-width="11" d="M0,323 V268 L27,301 L54,268 V323 M82,268 H127 M82,268 V323 M82,323 H127 M82,296 H115 M155,323 V268 H183 A27,27 0 0 1 183,323 H155 M238,268 V323 M266,323 L293,268 L320,323"/>
+      </g>
+    </svg>
   </a>
+
   <ul class="nav-links" id="navLinks">
+    <li><a href="#work">Work</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </button>
+
+  <div class="nav-cta"><a class="btn btn-primary" href="#contact">Start a project</a></div>
+  <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span></button>
 </nav>
 
-<div class="hero" id="top">
-  <p class="eyebrow">Cardiac Media — Creative. Technical. Strategic.</p>
-  <h1>You have problems.<br>We have <span>answers.</span></h1>
-  <p class="hero-sub">So. What are we building?</p>
-  <a class="hero-cta" href="#contact">Let's Talk →</a>
-  <div class="hero-rule">
-    <span class="hero-side-text">15 Years in the Field</span>
+<header class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <h1 class="rise rise-1">You have problems.<br>We have answers.</h1>
+    <p class="rise rise-2">Fifteen years of creative, technical, and strategic work — handled in a single conversation instead of five vendors.</p>
+    <div class="hero-actions rise rise-3">
+      <a class="btn btn-primary" href="#contact">Start a project</a>
+      <a class="btn btn-ghost" href="#work">See the work</a>
+    </div>
   </div>
-</div>
+</header>
 
-<section id="services">
-  <div class="section-label">What We Do</div>
-  <div class="services-grid">
-    <div class="service-item">
-      <div class="service-num">01</div>
-      <div class="service-title">Graphic Design</div>
-      <div class="service-desc">Brand identity, logos, print, digital assets, and event graphics.</div>
-      <span class="service-accent"></span>
+<section id="work">
+  <div class="wrap">
+    <p class="label">Selected work</p>
+    <h2 style="margin-bottom:40px">Fifteen years, on stage and behind it.</h2>
+    <div class="grid-3">
+      <article class="work-card">
+        <img src="img/work-1.jpg" alt="Stage lighting and haze at a live event" loading="lazy" width="1000" height="667">
+        <div class="work-meta"><h3>Christmas Gala</h3><span>Live production &middot; Video</span></div>
+      </article>
+      <article class="work-card">
+        <img src="img/work-2.jpg" alt="Audience and stage wash at a large gathering" loading="lazy" width="1000" height="667">
+        <div class="work-meta"><h3>Emerging Leaders</h3><span>Lighting &middot; Stage design</span></div>
+      </article>
+      <article class="work-card">
+        <img src="img/work-3.jpg" alt="Microphone on stage under warm light" loading="lazy" width="1000" height="667">
+        <div class="work-meta"><h3>Church Health</h3><span>Audio &middot; Video series</span></div>
+      </article>
     </div>
-    <div class="service-item">
-      <div class="service-num">02</div>
-      <div class="service-title">Video Production</div>
-      <div class="service-desc">Concept through delivery — promotional content, event recaps, sermon series, and more.</div>
-      <span class="service-accent"></span>
-    </div>
-    <div class="service-item">
-      <div class="service-num">03</div>
-      <div class="service-title">Live Production</div>
-      <div class="service-desc">Lighting, audio, and video for events of any scale.</div>
-      <span class="service-accent"></span>
-    </div>
-    <div class="service-item">
-      <div class="service-num">04</div>
-      <div class="service-title">Website Design</div>
-      <div class="service-desc">Strategy, design, and build — sites that are functional and represent your brand well.</div>
-      <span class="service-accent"></span>
-    </div>
-    <div class="service-item">
-      <div class="service-num">05</div>
-      <div class="service-title">Consulting</div>
-      <div class="service-desc">AI adoption, systems integration, software audits, creative direction, and workflow optimization.</div>
-      <span class="service-accent"></span>
-    </div>
-    <div class="service-item">
-      <div class="service-num">06</div>
-      <div class="service-title">Team Training</div>
-      <div class="service-desc">Hands-on training for your team across any of our service areas.</div>
-      <span class="service-accent"></span>
-    </div>
+    <p class="caption">Placeholder photography — to be replaced with Cardiac Media project stills.</p>
   </div>
 </section>
 
-<section>
-  <div class="why-grid">
-    <div>
-      <div class="section-label">Why Cardiac Media</div>
-      <h2 class="why-h2">We can<br><span>do it all.</span></h2>
-      <p class="why-body">Most organizations piece together a handful of vendors to cover what we handle in a single conversation. After 15 years across ministry environments and commercial productions, we've seen just about every challenge — and solved most of them.</p>
-      <p class="why-body">We bring the hands-on experience, the strategic thinking, and the right people to make it happen. And when the project wraps, your team is better equipped than when we started.</p>
-      <div class="why-points">
-        <div class="why-point"><div class="why-dot"></div><span>Deep ministry roots — and growing reach beyond them</span></div>
-        <div class="why-point"><div class="why-dot"></div><span>Real production experience behind every recommendation</span></div>
-        <div class="why-point"><div class="why-dot"></div><span>A trusted network of collaborators, not just one person</span></div>
-      </div>
-    </div>
-    <div class="stat-block">
-      <div class="stat">
-        <div class="stat-num">15+</div>
-        <div class="stat-label">Years in the field</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">6</div>
-        <div class="stat-label">Service areas</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">1</div>
-        <div class="stat-label">Call to get started</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">∞</div>
-        <div class="stat-label">Problems we can solve</div>
-      </div>
+<section id="services">
+  <div class="wrap">
+    <p class="label">What we do</p>
+    <h2 style="margin-bottom:56px;max-width:640px">Six service areas. One phone call.</h2>
+    <div class="grid-3">
+      <div class="card svc"><p class="num">01</p><h3>Graphic Design</h3><p>Brand identity, logos, print, digital assets, and event graphics.</p></div>
+      <div class="card svc"><p class="num">02</p><h3>Video Production</h3><p>Concept through delivery — promotional content, event recaps, sermon series, and more.</p></div>
+      <div class="card svc"><p class="num">03</p><h3>Live Production</h3><p>Lighting, audio, and video for events of any scale.</p></div>
+      <div class="card svc"><p class="num">04</p><h3>Website Design</h3><p>Strategy, design, and build — sites that are functional and represent your brand well.</p></div>
+      <div class="card svc"><p class="num">05</p><h3>Consulting</h3><p>AI adoption, systems integration, software audits, creative direction, and workflow optimization.</p></div>
+      <div class="card svc"><p class="num">06</p><h3>Team Training</h3><p>Hands-on training for your team across any of our service areas.</p></div>
     </div>
   </div>
 </section>
 
 <section id="about">
-  <div class="story-wrap">
-    <div class="section-label">The Name</div>
-    <h2 class="story-h2">Why <span>Cardiac.</span></h2>
-
-    <p class="story-body">Cardiac Media didn't start with a business plan. It started with a mentor.</p>
-
-    <p class="story-body"><strong>Kevin Knight</strong> was the person who showed me what was possible beyond what I already knew. He introduced me to media, to technology, and to the idea that creativity and technical skill could live in the same person. He had a nickname from his college days — Cardiac — earned because of a heart condition he carried. He wore it like a badge and named his company Cardiac Productions.</p>
-
-    <p class="story-body">Kevin passed away in 2007 from H1N1. He left behind a legacy bigger than any production he ever ran.</p>
-
-    <p class="story-body">After he was gone, I reached out to his wife Joanna and asked if I could carry the name forward. She said yes. I changed Productions to Media — because what I do has grown into something broader than any one category — but the name took on something more than a tribute in the process.</p>
-
-    <div class="pullquote">Cardiac means heart. And for me, this work has always been a matter of the heart.</div>
-
-    <p class="story-body">Serving people, helping organizations communicate better, equipping teams to do more than they thought they could — that's not just a job description. It's why I do this. Ministry has a word for that kind of calling, and I've never found a better one.</p>
-
-    <p class="story-body">The name carries Kevin's memory. It also carries the reason I keep showing up.</p>
+  <div class="wrap grid-2 why">
+    <div>
+      <p class="label">Why Cardiac Media</p>
+      <h2 style="margin-bottom:24px">We can do it all.</h2>
+      <p>Most organizations piece together a handful of vendors to cover what we handle in a single conversation. After fifteen years across ministry environments and commercial productions, we've seen just about every challenge — and solved most of them.</p>
+      <p>When the project wraps, your team is better equipped than when we started.</p>
+    </div>
+    <div class="stats">
+      <div class="card stat"><p class="n">15+</p><p class="l">Years in the field</p></div>
+      <div class="card stat"><p class="n">6</p><p class="l">Service areas</p></div>
+      <div class="card stat"><p class="n">1</p><p class="l">Call to get started</p></div>
+      <div class="card stat"><p class="n">&infin;</p><p class="l">Problems we can solve</p></div>
+    </div>
   </div>
 </section>
 
 <section>
-  <div class="story-wrap">
-    <div class="section-label">The Founder</div>
-    <h2 class="story-h2">Bruce <span>Blair.</span></h2>
-
-    <p class="story-body">I grew up a preacher's kid in the Church of God, traveling with my dad, <strong>David Blair</strong> — a do-it-all kind of man who never waited for someone else to handle something when he could figure it out himself. Those early years on the road with him — running his PowerPoints, setting up sound, troubleshooting whatever needed troubleshooting — were my real education. He's the one who got me started, and he's the reason I still care about doing a great job every single time. He passed away in 2021 from COVID, and his legacy is something I carry into every project.</p>
-
-    <p class="story-body">The work has taken me across the country — Arkansas, Kentucky, Maryland, Georgia, and now Tennessee — and across just about every role you can have in media and production. Over 15 years I've run lights, mixed audio, edited video, built websites, managed social media, directed creative, and consulted on systems and workflows for organizations of all sizes.</p>
-
-    <p class="story-body">Most of that work has been alongside ministries and the Church of God denomination. Those relationships shaped how I work — with care, with commitment, and with the understanding that what happens behind the scenes matters just as much as what shows up on the stage.</p>
-
-    <p class="story-body">These days I spend most of my time consulting, training teams, and helping organizations figure out how to work smarter — whether that means adopting new tools, fixing broken workflows, or building the internal capacity to stop outsourcing everything.</p>
-
-    <p class="story-body">I'm married to <strong>KaLea</strong>. We have a son named <strong>Charlie</strong>, and another one on the way this October.</p>
-
-    <div class="pullquote">If you've made it this far — let's talk.</div>
+  <div class="wrap card name-card">
+    <p class="label">The name</p>
+    <div class="name-grid">
+      <div>
+        <h2 style="margin-bottom:24px">Cardiac means heart.</h2>
+        <p>Kevin Knight showed me what was possible beyond what I already knew. He had a nickname from his college days — Cardiac — earned because of a heart condition he carried. He wore it like a badge, and named his company Cardiac Productions.</p>
+        <p>After he was gone, I asked his wife Joanna if I could carry the name forward. She said yes.</p>
+      </div>
+      <p class="pull">For me, this work has always been a matter of the heart.</p>
+    </div>
   </div>
 </section>
 
-<section class="contact-band" id="contact">
-  <div class="contact-label">Let's Talk</div>
-  <h2 class="contact-h2">Ready to <span>build something?</span></h2>
-  <p class="contact-sub">No pitch. No pressure. Just a conversation about what you need.</p>
-  <a class="contact-email" href="mailto:icardiacmedia@gmail.com">icardiacmedia@gmail.com</a>
-  <p class="contact-note">We'll get back to you within one business day.</p>
+<section id="contact">
+  <div class="wrap contact-grid">
+    <div class="contact-side">
+      <p class="label">Contact</p>
+      <h2 style="margin-bottom:24px">So. What are we building?</h2>
+      <p style="color:var(--ash)">Tell me what you need and I'll get back to you. If you'd rather just email directly, that works too.</p>
+      <a class="email" href="mailto:icardiacmedia@gmail.com">icardiacmedia@gmail.com</a>
+    </div>
+
+    <form action="https://formsubmit.co/icardiacmedia@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New inquiry from cardiac.media">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://cardiac.media/thanks.html">
+      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <div class="form-row">
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" required autocomplete="name" placeholder="Your name">
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required autocomplete="email" placeholder="you@organization.org">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="org">Organization <span style="text-transform:none;letter-spacing:0;color:var(--slate)">(optional)</span></label>
+        <input id="org" name="organization" type="text" autocomplete="organization" placeholder="Church, ministry, or company">
+      </div>
+
+      <div class="field">
+        <label for="need">What do you need?</label>
+        <select id="need" name="project_type" required>
+          <option value="" disabled selected>Select one</option>
+          <option>Graphic Design</option>
+          <option>Video Production</option>
+          <option>Live Production</option>
+          <option>Website Design</option>
+          <option>Consulting</option>
+          <option>Team Training</option>
+          <option>Not sure yet / something else</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="message">Tell me about the project</label>
+        <textarea id="message" name="message" required placeholder="What are you working on, and when does it need to happen?"></textarea>
+      </div>
+
+      <button class="btn btn-primary" type="submit">Send inquiry</button>
+      <p class="form-note">Goes straight to icardiacmedia@gmail.com. No list, no newsletter.</p>
+    </form>
+  </div>
 </section>
 
 <footer>
-  <div class="footer-copy">© 2025 Cardiac Media LLC</div>
-  <div class="footer-name">Bruce Blair — Founder</div>
+  <div class="foot-inner">
+    <svg class="cm" viewBox="0 0 1440 345" role="img" aria-label="Cardiac Media">
+      <path stroke-width="12" d="M940,295 H1435 V5 H5 V295 H500"/>
+      <g transform="translate(78,0)">
+        <path stroke-width="18" d="M240,65 H150 A85,85 0 0 0 150,235 H240"/>
+        <path stroke-width="18" d="M265,235 L340,65 L415,235 M296,166 H384"/>
+        <path stroke-width="18" d="M440,235 V65 H545 A50,50 0 0 1 545,165 H440 M528,165 L610,235"/>
+        <path stroke-width="18" d="M805,235 V65 H720 A85,85 0 0 0 720,235 H805"/>
+        <path stroke-width="18" d="M835,65 V235"/>
+        <path stroke-width="18" d="M865,235 L940,65 L1015,235 M896,166 H984"/>
+        <path stroke-width="18" d="M1225,65 H1135 A85,85 0 0 0 1135,235 H1225"/>
+      </g>
+      <g transform="translate(560,0)">
+        <path stroke-width="11" d="M0,323 V268 L27,301 L54,268 V323 M82,268 H127 M82,268 V323 M82,323 H127 M82,296 H115 M155,323 V268 H183 A27,27 0 0 1 183,323 H155 M238,268 V323 M266,323 L293,268 L320,323"/>
+      </g>
+    </svg>
+    <p>Cardiac Media, LLC &middot; Tennessee &middot; Creative. Technical. Strategic.</p>
+  </div>
 </footer>
 
 <script>
-  const toggle = document.getElementById('menuToggle');
-  const links = document.getElementById('navLinks');
-  toggle.addEventListener('click', () => {
-    toggle.classList.toggle('open');
-    links.classList.toggle('open');
+  var nav = document.getElementById('nav');
+  var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 24); };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  var toggle = document.getElementById('menuToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function () {
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      toggle.classList.remove('open');
+  links.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') {
       links.classList.remove('open');
-    });
+      toggle.setAttribute('aria-expanded', 'false');
+    }
   });
 </script>
-
 </body>
 </html>
