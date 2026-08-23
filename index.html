@@ -179,6 +179,14 @@
     color: var(--ivory); text-transform: none; letter-spacing: 0;
   }
 
+  .founder-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: clamp(32px, 6vw, 72px); align-items: start }
+  .founder-grid .prose p { color: var(--ash); max-width: 660px }
+  .founder-grid .prose p + p { margin-top: 16px }
+  .founder-kicker {
+    font-family: var(--display); font-weight: 500; font-size: clamp(19px, 2.4vw, 21px);
+    line-height: 1.35; color: var(--ivory); margin-top: 32px;
+  }
+
   /* ---------- form ---------- */
   .contact-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(32px, 6vw, 72px); align-items: start }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px }
@@ -221,7 +229,7 @@
   /* ---------- responsive ---------- */
   @media (max-width: 1000px) {
     .grid-3 { grid-template-columns: repeat(2, minmax(0,1fr)) }
-    .grid-2, .name-grid, .contact-grid { grid-template-columns: 1fr }
+    .grid-2, .name-grid, .contact-grid, .founder-grid { grid-template-columns: 1fr }
     .pull { border-left: none; border-top: 1px solid var(--slate); padding-left: 0; padding-top: 24px }
   }
   @media (max-width: 820px) {
@@ -358,6 +366,23 @@
         <p>After he was gone, I asked his wife Joanna if I could carry the name forward. She said yes.</p>
       </div>
       <p class="pull">For me, this work has always been a matter of the heart.</p>
+    </div>
+  </div>
+</section>
+
+<section id="founder">
+  <div class="wrap founder-grid">
+    <div>
+      <p class="label">The founder</p>
+      <h2>Bruce Blair.</h2>
+    </div>
+    <div class="prose">
+      <p>I grew up a preacher's kid in the Church of God, traveling with my dad, David Blair &mdash; a do-it-all kind of man who never waited for someone else to handle something when he could figure it out himself. Those early years on the road with him &mdash; running his PowerPoints, setting up sound, troubleshooting whatever needed troubleshooting &mdash; were my real education. He's the one who got me started, and he's the reason I still care about doing a great job every single time. He passed away in 2021 from COVID, and his legacy is something I carry into every project.</p>
+      <p>The work has taken me across the country &mdash; Arkansas, Kentucky, Maryland, Georgia, and now Tennessee &mdash; and across just about every role you can have in media and production. Over 15 years I've run lights, mixed audio, edited video, built websites, managed social media, directed creative, and consulted on systems and workflows for organizations of all sizes.</p>
+      <p>Most of that work has been alongside ministries and the Church of God denomination. Those relationships shaped how I work &mdash; with care, with commitment, and with the understanding that what happens behind the scenes matters just as much as what shows up on the stage.</p>
+      <p>These days I spend most of my time consulting, training teams, and helping organizations figure out how to work smarter &mdash; whether that means adopting new tools, fixing broken workflows, or building the internal capacity to stop outsourcing everything.</p>
+      <p>I'm married to KaLea. We have a son named Charlie, and another one on the way this October.</p>
+      <p class="founder-kicker">If you've made it this far &mdash; let's talk.</p>
     </div>
   </div>
 </section>
