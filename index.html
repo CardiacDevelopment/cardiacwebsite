@@ -152,6 +152,21 @@
   .eyebrow { font-size: 14px; font-weight: 600; color: var(--muted); }
   .name-card p { font-size: clamp(16px, 1.18vw, 17px); line-height: 1.75; color: #3F3F46; text-wrap: pretty; }
   .pullquote { font-size: clamp(20px, 1.53vw, 22px); font-weight: 700; line-height: 1.35; letter-spacing: -0.03em; color: var(--ink); }
+  .story { margin-top: 2px; }
+  .story summary {
+    list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 9px;
+    min-height: 44px; font-size: 15px; font-weight: 600; color: var(--ink);
+  }
+  .story summary::-webkit-details-marker { display: none; }
+  .story summary::marker { content: ''; }
+  .story summary .lbl { border-bottom: 2px solid var(--ink); padding-bottom: 2px; }
+  .story summary:hover .lbl { border-bottom-color: var(--green); color: var(--green); }
+  .story summary .chev { transition: transform .2s ease; }
+  .story[open] summary .chev { transform: rotate(180deg); }
+  .story .lbl-open { display: none; }
+  .story[open] .lbl-closed { display: none; }
+  .story[open] .lbl-open { display: inline; }
+  .story-body { display: flex; flex-direction: column; gap: 16px; margin-top: 20px; }
   .person { display: flex; align-items: center; gap: 12px; }
   .avatar { width: 44px; height: 44px; flex: 0 0 44px; border-radius: 999px; background: #E1E1E3; object-fit: cover; display: block; }
   .person-name { font-size: 15px; font-weight: 600; }
@@ -217,7 +232,8 @@
     .name-left, .name-right { display: contents; }
     .name-card .eyebrow { order: 1 } .name-card .h-name { order: 2 }
     .name-card .passage { order: 3 } .name-card .pullquote { order: 4 }
-    .name-card .person { order: 5; margin-top: 4px; }
+    .name-card .story { order: 5 }
+    .name-card .person { order: 6; margin-top: 4px; }
 
     .contact { align-items: stretch; text-align: left; }
     .contact .h-cta, .contact > p { max-width: none; }
@@ -362,6 +378,20 @@
       <div class="name-right">
         <p class="passage">Kevin Knight showed me what was possible beyond what I already knew. He had a nickname from his college days — Cardiac — earned because of a heart condition he carried. He wore it like a badge, and named his company Cardiac Productions. After he was gone, I asked his wife Joanna if I could carry the name forward. She said yes.</p>
         <p class="pullquote">For me, this work has always been a matter of the heart.</p>
+
+        <details class="story">
+          <summary>
+            <span class="lbl lbl-closed">Read the full story</span>
+            <span class="lbl lbl-open">Close</span>
+            <svg class="chev" width="14" height="9" viewBox="0 0 14 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1.5L7 7.5L13 1.5"/></svg>
+          </summary>
+          <div class="story-body">
+            <p>He introduced me to media, to technology, and to the idea that creativity and technical skill could live in the same person. Kevin passed away in 2007 from H1N1. He left behind a legacy bigger than any production he ever ran.</p>
+            <p>I changed Productions to Media — because what I do has grown into something broader than any one category — but the name took on something more than a tribute in the process.</p>
+            <p>Serving people, helping organizations communicate better, equipping teams to do more than they thought they could — that's not just a job description. It's why I do this. Ministry has a word for that kind of calling, and I've never found a better one.</p>
+            <p>The name carries Kevin's memory. It also carries the reason I keep showing up.</p>
+          </div>
+        </details>
       </div>
     </div>
   </section>
