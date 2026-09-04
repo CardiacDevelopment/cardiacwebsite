@@ -153,7 +153,7 @@
   .name-card p { font-size: clamp(16px, 1.18vw, 17px); line-height: 1.75; color: #3F3F46; text-wrap: pretty; }
   .pullquote { font-size: clamp(20px, 1.53vw, 22px); font-weight: 700; line-height: 1.35; letter-spacing: -0.03em; color: var(--ink); }
   .person { display: flex; align-items: center; gap: 12px; }
-  .avatar { width: 44px; height: 44px; flex: 0 0 44px; border-radius: 999px; background: #E1E1E3; }
+  .avatar { width: 44px; height: 44px; flex: 0 0 44px; border-radius: 999px; background: #E1E1E3; object-fit: cover; display: block; }
   .person-name { font-size: 15px; font-weight: 600; }
   .person-role { font-size: 14px; color: var(--muted); }
 
@@ -352,7 +352,7 @@
         <div class="eyebrow">The name</div>
         <h2 class="h-name">Cardiac<br>means heart.</h2>
         <div class="person">
-          <div class="avatar"></div>
+          <img class="avatar" src="img/bruce.jpg" width="44" height="44" alt="Bruce Blair" decoding="async">
           <div>
             <div class="person-name">Bruce Blair</div>
             <div class="person-role">Founder, Cardiac Media</div>
