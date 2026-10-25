@@ -109,9 +109,17 @@
   .menu-panel { display: none; }
 
   /* ---------- hero ---------- */
-  .hero { padding-top: clamp(68px, 9.4vw, 136px); text-align: center; }
-  .hero p { font-size: clamp(17px, 1.46vw, 21px); line-height: 1.6; color: var(--muted); max-width: 780px; margin: 30px auto 0; text-wrap: pretty; }
-  .hero-actions { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 36px; }
+  main { position: relative; }
+  .hero { padding-top: clamp(68px, 9.4vw, 136px); text-align: left; }
+  .hero p { font-size: clamp(17px, 1.46vw, 21px); line-height: 1.6; color: var(--ink-soft, #3F3F46); max-width: 640px; margin: 30px 0 0; text-wrap: pretty; }
+  .hero-actions { display: flex; align-items: center; justify-content: flex-start; gap: 12px; margin-top: 36px; }
+
+  /* ---------- contour texture ---------- */
+  .topo { position: absolute; pointer-events: none; fill: none; }
+  .topo-hero { left: 0; top: -92px; width: 100%; height: 720px; z-index: -1; stroke: var(--green); stroke-width: 1.4; opacity: .4; }
+  .topo-panel { left: 0; top: 0; width: 100%; height: 100%; stroke: #FFFFFF; stroke-width: 1.2; opacity: .45; }
+  .panel { position: relative; overflow: hidden; }
+  .panel > :not(.topo) { position: relative; }
 
   /* ---------- black panel ---------- */
   .panel-sec { padding-top: clamp(72px, 7.2vw, 104px); }
@@ -288,6 +296,16 @@
 
 <main id="top">
 
+  <svg class="topo topo-hero" aria-hidden="true" viewBox="0 0 1280 640" preserveAspectRatio="xMaxYMin slice">
+    <filter id="topoHero" x="-30%" y="-30%" width="160%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.004 0.006" numOctaves="2" seed="21" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="190" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <g filter="url(#topoHero)">
+      <ellipse cx="1060" cy="120" rx="40" ry="26"/><ellipse cx="1060" cy="120" rx="95" ry="62"/><ellipse cx="1060" cy="120" rx="150" ry="98"/><ellipse cx="1060" cy="120" rx="205" ry="134"/><ellipse cx="1060" cy="120" rx="260" ry="170"/><ellipse cx="1060" cy="120" rx="315" ry="206"/><ellipse cx="1060" cy="120" rx="370" ry="242"/><ellipse cx="1060" cy="120" rx="425" ry="278"/><ellipse cx="1060" cy="120" rx="480" ry="314"/><ellipse cx="1060" cy="120" rx="535" ry="350"/><ellipse cx="1060" cy="120" rx="590" ry="386"/><ellipse cx="1060" cy="120" rx="645" ry="422"/><ellipse cx="1060" cy="120" rx="700" ry="458"/>
+    </g>
+  </svg>
+
   <section class="hero wrap">
     <h1>You have problems.<br>We have answers.</h1>
     <p>Fifteen years in, the honest answer to “can you do ___?” is almost always yes. Technology, systems, media, websites, software, or the thing nobody else can figure out. If there is a problem, I like figuring it out.</p>
@@ -299,6 +317,15 @@
 
   <section class="panel-sec wrap">
     <div class="panel">
+      <svg class="topo topo-panel" aria-hidden="true" viewBox="0 0 1216 330" preserveAspectRatio="xMinYMax slice">
+        <filter id="topoPanel" x="-30%" y="-30%" width="160%" height="160%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.005 0.008" numOctaves="2" seed="5" result="w"/>
+          <feDisplacementMap in="SourceGraphic" in2="w" scale="150" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <g filter="url(#topoPanel)">
+          <ellipse cx="140" cy="300" rx="50" ry="24"/><ellipse cx="140" cy="300" rx="120" ry="58"/><ellipse cx="140" cy="300" rx="190" ry="92"/><ellipse cx="140" cy="300" rx="260" ry="126"/><ellipse cx="140" cy="300" rx="330" ry="160"/><ellipse cx="140" cy="300" rx="400" ry="194"/><ellipse cx="140" cy="300" rx="470" ry="228"/><ellipse cx="140" cy="300" rx="540" ry="262"/><ellipse cx="140" cy="300" rx="610" ry="296"/><ellipse cx="140" cy="300" rx="680" ry="330"/>
+        </g>
+      </svg>
       <div class="chip">Behind the scenes</div>
       <h2 class="h-panel">The best work is the work that just works.</h2>
       <p>The computer connects. The software works. The website looks right. The sound is clean. The files are where they are supposed to be. The system does what it was supposed to do. Most of the work happens where nobody is looking.</p>
