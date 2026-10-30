@@ -1,61 +1,168 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Thanks · Cardiac Media</title>
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0b0c" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/Azonix.otf" as="font" type="font/otf" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,300..800&display=swap">
+<script>try{var t=localStorage.getItem('cm-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: #FFFFFF; color: #0B0B0C;
-    font-family: 'Figtree', 'Helvetica Neue', Arial, sans-serif;
-    min-height: 100svh; display: grid; place-items: center;
-    padding: 40px clamp(20px, 5vw, 80px); line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-  }
-  .card {
-    background: #F4F4F5; border-radius: clamp(28px, 2.5vw, 36px);
-    padding: clamp(48px, 6vw, 84px) clamp(24px, 4vw, 64px);
-    max-width: 720px; width: 100%; text-align: center;
-  }
-  .cm { width: 150px; height: auto; margin: 0 auto 40px; color: #0B0B0C; display: block; }
-  .cm path { fill: none; stroke: currentColor; stroke-linecap: butt; stroke-linejoin: miter; }
-  h1 { font-size: clamp(38px, 5.5vw, 64px); font-weight: 800; line-height: 0.96; letter-spacing: -0.045em; margin-bottom: 20px; }
-  p { font-size: clamp(16px, 1.3vw, 18px); color: #5A5A61; max-width: 460px; margin: 0 auto 32px; text-wrap: pretty; }
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center;
-    min-height: 54px; padding: 0 32px; border-radius: 999px;
-    background: #008000; color: #FFFFFF; font-size: 16px; font-weight: 600; text-decoration: none;
-  }
-  .btn:hover { opacity: .88; }
-  :focus-visible { outline: 2px solid #008000; outline-offset: 3px; border-radius: 4px; }
+/* Layout: one held moment. Big type, the beat, a way back. */
+:root{--s1:#ffffff; --s2:#f5f5f3; --s3:#ebebe8; --ink:#0b0b0c; --muted:#56565b; --line:#dcdcd8; --line-strong:#76767b; --brand:#0b0b0c; --on-brand:#ffffff; --on-brand-muted:#a4a4a9; --main:#0ca512; --on-main:#0b0b0c; --main-ink:#087410; --redact:#0b0b0c; --grain:0.05; color-scheme:light;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--s1:#0b0b0c; --s2:#151516; --s3:#212123; --ink:#f5f5f3; --muted:#a4a4a9; --line:#2e2e31; --line-strong:#8a8a90; --brand:#ffffff; --on-brand:#0b0b0c; --on-brand-muted:#56565b; --main:#0ca512; --on-main:#0b0b0c; --main-ink:#3ddc45; --redact:#2a2a2d; --grain:0.08; color-scheme:dark;}}
+:root[data-theme="dark"]{--s1:#0b0b0c; --s2:#151516; --s3:#212123; --ink:#f5f5f3; --muted:#a4a4a9; --line:#2e2e31; --line-strong:#8a8a90; --brand:#ffffff; --on-brand:#0b0b0c; --on-brand-muted:#56565b; --main:#0ca512; --on-main:#0b0b0c; --main-ink:#3ddc45; --redact:#2a2a2d; --grain:0.08; color-scheme:dark;}
+
+@font-face{font-family:"Azonix";src:url(/fonts/Azonix.otf) format("opentype");font-display:swap}
+:root{
+  --display:"Azonix","Eurostile","Arial Black",sans-serif;
+  --sans:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"DM Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --ease:cubic-bezier(.7,0,.2,1);
+}
+*{box-sizing:border-box}
+html,body{overflow-x:clip}
+body{margin:0}
+img{max-width:100%}
+html{scroll-behavior:smooth}
+body{background:var(--s1);color:var(--ink);font:400 16px/26px var(--sans);-webkit-font-smoothing:antialiased;transition:background-color .4s,color .4s}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--s1)}
+.wrap{max-width:1280px;margin-inline:auto;padding-left:max(clamp(16px,4vw,48px),env(safe-area-inset-left,0px));padding-right:max(clamp(16px,4vw,48px),env(safe-area-inset-right,0px))}
+.display{font-family:var(--display);font-weight:400;text-transform:uppercase;letter-spacing:.02em;text-wrap:balance}
+.eyebrow{font:500 12px/16px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+h1,h2,h3,p{margin:0}
+
+/* Top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--s1);border-bottom:1px solid var(--line);transition:background-color .4s}
+.bar .wrap{display:flex;align-items:center;gap:24px;min-height:68px}
+.bar .logo{display:block;color:var(--ink);line-height:0}
+.bar .logo svg{width:148px;height:auto}
+.bar nav{margin-left:auto;display:flex;align-items:center;gap:22px;font:600 14px/18px var(--sans)}
+.bar nav a{text-decoration:none}
+.bar nav a:hover{color:var(--main-ink)}
+.soon{display:inline-flex;align-items:center;gap:8px;color:var(--muted)}
+.tag{font:500 10px/14px var(--mono);letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line-strong);border-radius:2px;padding:2px 6px;color:var(--muted)}
+.theme{width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--line-strong);border-radius:2px;background:transparent;color:var(--ink);cursor:pointer}
+.theme svg{width:18px;height:18px}
+.theme .sun{display:none}
+:root[data-theme="dark"] .theme .sun{display:block}
+:root[data-theme="dark"] .theme .moon{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .theme .sun{display:block}:root:not([data-theme="light"]) .theme .moon{display:none}}
+@media (max-width:720px){.bar nav .hide-sm{display:none}}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:2px;font:600 14px/18px var(--sans);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .2s var(--ease),background-color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+.btn-main{background:var(--main);color:var(--on-main)}
+.btn-brand{background:var(--brand);color:var(--on-brand)}
+.btn-ghost{background:transparent;color:inherit;border-color:currentColor}
+.btn svg{width:16px;height:16px}
+
+/* Form */
+.form{display:grid;gap:18px}
+.form .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:560px){.form .two{grid-template-columns:1fr}}
+.field{display:grid;gap:6px;min-width:0}
+.field label{font:600 14px/18px var(--sans);color:var(--ink)}
+.field label span{font-weight:400;color:var(--muted)}
+.field input,.field textarea{width:100%;min-height:48px;padding:12px 14px;border:1px solid var(--line-strong);border-radius:2px;background:var(--s1);color:var(--ink);font:400 16px/24px var(--sans)}
+.field textarea{min-height:132px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:2px solid var(--ink);outline-offset:1px}
+.hp{position:absolute;left:-9999px}
+.formcard{background:var(--s1);color:var(--ink);border-radius:4px;padding:clamp(20px,3vw,36px)}
+.formcard .btn{justify-self:start}
+
+/* Contact methods */
+.methods{display:grid;gap:18px}
+.methods .line{display:grid;gap:2px}
+.methods .val{text-decoration:none;font:500 clamp(18px,2.2vw,24px)/1.3 var(--mono);user-select:all;overflow-wrap:anywhere}
+.methods .acts{display:flex;flex-wrap:wrap;gap:10px}
+
+/* Story */
+.full{margin-top:18px}
+.full summary{cursor:pointer;font:600 14px/18px var(--sans);display:inline-flex;align-items:center;gap:8px;min-height:44px;list-style:none;text-decoration:underline;text-underline-offset:4px}
+.full summary::-webkit-details-marker{display:none}
+.full[open] summary .o{display:none}
+.full:not([open]) summary .c{display:none}
+.full .body{display:grid;gap:14px;max-width:62ch;color:var(--muted)}
+.photo{border:3px solid var(--ink);padding:6px;line-height:0;max-width:220px}
+.photo img{width:100%;aspect-ratio:1;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:filter .6s}
+.photo:hover img{filter:none}
+
+/* Footer */
+.foot{border-top:1px solid var(--line)}
+.foot .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:16px 32px;padding-block:28px 96px;font:400 14px/22px var(--sans);color:var(--muted)}
+.foot .logo{color:var(--ink);line-height:0}
+.foot .logo svg{width:120px;height:auto}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+
+main{min-height:calc(100svh - 69px);display:grid;align-items:center;position:relative;isolation:isolate;overflow:clip}
+.done{display:grid;gap:clamp(20px,3vw,32px);padding-block:clamp(56px,10vw,128px)}
+.got{font-size:clamp(34px,8.4vw,132px);line-height:1.02;animation:in 1.4s cubic-bezier(.2,.7,0,1) both}
+@keyframes in{from{letter-spacing:.3em;filter:blur(12px);opacity:0}}
+.beat{display:inline-block;vertical-align:.12em;margin-left:.2em;width:.32em;height:.32em;border-radius:999px;background:var(--main);animation:beat 1.1s infinite}
+@keyframes beat{0%,40%,100%{transform:scale(1)}8%{transform:scale(1.45)}16%{transform:scale(1)}24%{transform:scale(1.25)}}
+.done p.l{max-width:44ch;font-size:19px;line-height:30px;color:var(--muted)}
+.ghost{position:absolute;z-index:-1;left:0;right:0;bottom:-.1em;pointer-events:none;font:400 clamp(90px,24vw,400px)/1 var(--display);text-transform:uppercase;color:transparent;-webkit-text-stroke:1px var(--line);white-space:nowrap}
+.ghost .t{display:flex;width:max-content;animation:mq 60s linear infinite}
+.ghost .t span{padding-right:.3em}
+@keyframes mq{to{transform:translateX(-50%)}}
 </style>
 </head>
-<body>
-  <div class="card">
-    <svg class="cm" viewBox="0 0 1440 345" role="img" aria-label="Cardiac Media">
-      <path stroke-width="12" d="M940,295 H1435 V5 H5 V295 H500"/>
-      <g transform="translate(78,0)">
-        <path stroke-width="18" d="M240,65 H150 A85,85 0 0 0 150,235 H240"/>
-        <path stroke-width="18" d="M265,235 L340,65 L415,235 M296,166 H384"/>
-        <path stroke-width="18" d="M440,235 V65 H545 A50,50 0 0 1 545,165 H440 M528,165 L610,235"/>
-        <path stroke-width="18" d="M805,235 V65 H720 A85,85 0 0 0 720,235 H805"/>
-        <path stroke-width="18" d="M835,65 V235"/>
-        <path stroke-width="18" d="M865,235 L940,65 L1015,235 M896,166 H984"/>
-        <path stroke-width="18" d="M1225,65 H1135 A85,85 0 0 0 1135,235 H1225"/>
-      </g>
-      <g transform="translate(560,0)">
-        <path stroke-width="11" d="M0,323 V268 L27,301 L54,268 V323 M82,268 H127 M82,268 V323 M82,323 H127 M82,296 H115 M155,323 V268 H183 A27,27 0 0 1 183,323 H155 M238,268 V323 M266,323 L293,268 L320,323"/>
-      </g>
-    </svg>
-    <h1>Got it.</h1>
-    <p>Your message is in my inbox. I will get back to you, usually the same day.</p>
-    <a class="btn" href="/">Back to the site</a>
+<body id="top">
+<header class="bar">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="Cardiac Media home"><svg class="wordmark" xmlns="http://www.w3.org/2000/svg" viewBox="359 437 2016 506" role="img"><title>Cardiac Media</title><path fill="currentColor" d="M389 467h1956v29h-1956z M389 467h29v406h-29z M2316 467h29v406h-29z M389 844h571v29h-571z M1726 844h619v29h-619z"/><path fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" d="M595.63 586.25H723.25V545H595.63C525.25 545 468 596.81 468 660.5C468 724.19 525.25 776 595.63 776H723.25V734.75H595.63C550.41 734.75 513.58 701.42 513.58 660.5C513.58 619.58 550.41 586.25 595.63 586.25Z M982.02 734.75 875.18 545 768.34 734.75 745 776H796.05L819.39 734.75L875.18 635.75L930.97 734.75L954.31 776H1005.36Z M1194.93 669.41C1194.93 669.41 1194.93 669.41 1194.93 669.41C1201.86 668.75 1208.42 667.1 1214.62 664.46C1238.32 654.56 1254.73 632.78 1254.73 607.7C1254.73 590.54 1247.07 575.03 1234.67 563.48C1222.28 552.26 1205.14 545.33 1186.18 545.33H1025V776.33H1070.58V670.07H1116.16C1132.57 670.07 1146.79 677.99 1154.82 689.87L1155.91 691.85L1180.34 735.08L1203.68 776.33H1254.73L1231.39 735.08ZM1070.58 629.15V586.58H1186.18C1194.2 586.58 1199.67 589.88 1202.58 592.52C1205.14 594.83 1209.51 600.11 1209.51 607.7C1209.51 615.95 1204.04 623.54 1195.66 626.84C1192.74 628.16 1189.46 628.82 1186.18 628.82Z M1573.89 545V776H1446.26C1411.26 776 1379.53 763.13 1356.56 742.01C1354.01 739.7 1351.45 737.39 1349.27 735.08C1330.3 714.95 1319 688.88 1319 660.5C1319 596.81 1376.25 545.33 1446.63 545.33ZM1528.67 586.58H1446.63C1401.41 586.58 1364.58 619.91 1364.58 660.83C1364.58 701.75 1401.41 735.08 1446.63 735.08H1528.67Z M1692.58 776V545H1647V776Z M1955.02 734.75 1848.18 545 1741.34 734.75 1718 776H1769.05L1792.39 734.75L1848.18 635.75L1903.97 734.75L1927.31 776H1978.36Z M2090.63 586.25H2218.26V545H2090.63C2020.25 545 1963 596.81 1963 660.5C1963 724.19 2020.25 776 2090.63 776H2218.26V734.75H2090.63C2045.41 734.75 2008.58 701.42 2008.58 660.5C2008.58 619.58 2045.41 586.25 2090.63 586.25Z M1089.41 832.75 1056.38 855.74 1023.35 832.75 1005 820V913H1023.35V853.75L1041.41 866.23L1056.38 876.73L1071.36 866.23L1089.41 853.75V913H1107.77V820Z M1199.6 836.61H1274.62V820H1199.6C1184.33 820 1172 831.29 1172 845.11V887.89C1172 901.71 1184.33 913 1199.6 913H1274.62V896.39H1199.6C1194.46 896.39 1190.2 892.54 1190.2 887.89V870.35H1256.27V853.75H1190.2V845.11C1190.2 840.46 1194.46 836.61 1199.6 836.61Z M1339 820V913H1390.38C1404.48 913 1417.25 907.82 1426.5 899.32C1427.52 898.39 1428.55 897.46 1429.43 896.53C1437.07 888.42 1441.62 877.93 1441.62 866.5C1441.62 840.86 1418.57 820.13 1390.24 820.13ZM1357.2 836.74H1390.24C1408.44 836.74 1423.27 850.16 1423.27 866.63C1423.27 883.11 1408.44 896.53 1390.24 896.53H1357.2Z M1525.35 913V820H1507V913Z M1679.42 896.39 1636.41 820 1593.4 896.39 1584 913H1604.55L1613.95 896.39L1636.41 856.54L1658.87 896.39L1668.27 913H1688.82Z"/></svg></a>
+    <nav aria-label="Main"><button class="theme" type="button" data-theme-toggle>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button></nav>
   </div>
+</header>
+<main>
+  <div class="ghost" aria-hidden="true"><div class="t"><span>Cardiac</span><span>Cardiac</span><span>Cardiac</span><span>Cardiac</span></div></div>
+  <div class="wrap done">
+    <p class="eyebrow">Cardiac Media</p>
+    <h1 class="display got">Message received.<span class="beat" aria-hidden="true"></span></h1>
+    <p class="l">We’ll be in touch soon.</p>
+    <div><a class="btn btn-main" href="/">Back to the site</a></div>
+  </div>
+</main>
+<script>
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const GLIMPSES = ["IT troubleshooting","computer setup","network configuration","Microsoft 365","Google Workspace","website development","Wix","domain management","DNS","email setup","website migrations","software implementation","software evaluations","systems integration","workflow design","technology consulting","IT support","data organization","cloud systems","backup systems","cybersecurity basics","user training","onboarding","documentation","process improvement","vendor management","RFPs","technology procurement","AV systems","audio systems","live sound","livestreaming","church technology","media systems","production planning","event technology","presentation systems","camera systems","lighting","signal flow","cable management","equipment installation","equipment repair","software troubleshooting","the thing nobody else wants to figure out"];
+const KEY = new Set(["technology consulting","website development","church technology","systems integration","the thing nobody else wants to figure out"]);
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+function cssVar(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()}
+
+/* Theme toggle: follows the system until the viewer picks */
+(function(){
+  const r=document.documentElement;
+  try{const s=localStorage.getItem('cm-theme');if(s)r.setAttribute('data-theme',s)}catch(e){}
+  const sys=()=>matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+  const eff=()=>r.getAttribute('data-theme')||sys();
+  document.querySelectorAll('[data-theme-toggle]').forEach(b=>{
+    const upd=()=>b.setAttribute('aria-label',eff()==='dark'?'Switch to light theme':'Switch to dark theme');
+    upd();
+    b.addEventListener('click',()=>{const n=eff()==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('cm-theme',n)}catch(e){}upd();document.dispatchEvent(new Event('themechange'))});
+  });
+})();
+
+</script>
 </body>
 </html>

@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+N:;;;;
+FN:Cardiac Media
+ORG:Cardiac Media
+EMAIL;TYPE=INTERNET,WORK:info@cardiac.media
+TEL;TYPE=WORK,VOICE,CELL:+12293292472
+URL:https://cardiac.media
+X-ABShowAs:COMPANY
+END:VCARD

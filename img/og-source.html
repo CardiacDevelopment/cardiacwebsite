@@ -1,38 +1,23 @@
 <!DOCTYPE html>
 <html><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;800&display=swap" rel="stylesheet">
+<!-- Source for img/og.png (1200x630). Render: Chrome headless, window 1200x630, screenshot. -->
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
+  @font-face{font-family:"Azonix";src:url(../fonts/Azonix.otf) format("opentype")}
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{width:1200px;height:630px;overflow:hidden}
-  body{background:#0B0B0C;color:#FFFFFF;font-family:'Figtree',Helvetica,Arial,sans-serif;
-       padding:72px 80px;display:flex;flex-direction:column;justify-content:space-between}
-  svg{width:300px;height:72px;display:block;color:#FFFFFF}
-  svg path{fill:none;stroke:currentColor;stroke-linecap:butt;stroke-linejoin:miter}
-  h1{font-size:86px;font-weight:800;line-height:0.94;letter-spacing:-0.045em}
-  .row{display:flex;align-items:center;justify-content:space-between;gap:24px}
-  .url{font-size:26px;font-weight:600;color:#FFFFFF}
-  .chip{display:inline-flex;align-items:center;padding:12px 24px;border-radius:999px;
-        background:#008000;font-size:22px;font-weight:600;color:#FFFFFF}
+  body{background:#0B0B0C;color:#FFFFFF;padding:68px 80px;display:flex;flex-direction:column;justify-content:space-between;position:relative}
+  .logo{width:300px;color:#FFFFFF;line-height:0}
+  .logo svg{width:100%;height:auto}
+  h1{font:400 112px/1.02 "Azonix",sans-serif;text-transform:uppercase;letter-spacing:.01em}
+  h1 em{font-style:normal;color:#3DDC45;display:flex;align-items:center;gap:28px}
+  h1 i{display:block;width:40px;height:40px;border-radius:999px;background:#0CA512}
+  .row{display:flex;justify-content:space-between;font:500 22px/1 "DM Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:#A4A4A9}
+  .ghost{position:absolute;right:-40px;bottom:-70px;font:400 330px/1 "Azonix",sans-serif;text-transform:uppercase;color:transparent;-webkit-text-stroke:1.5px #2E2E31;white-space:nowrap;z-index:-1}
 </style></head>
 <body>
-  <svg viewBox="0 0 1440 345" role="img" aria-label="Cardiac Media">
-    <path stroke-width="12" d="M940,295 H1435 V5 H5 V295 H500"/>
-    <g transform="translate(78,0)">
-      <path stroke-width="18" d="M240,65 H150 A85,85 0 0 0 150,235 H240"/>
-      <path stroke-width="18" d="M265,235 L340,65 L415,235 M296,166 H384"/>
-      <path stroke-width="18" d="M440,235 V65 H545 A50,50 0 0 1 545,165 H440 M528,165 L610,235"/>
-      <path stroke-width="18" d="M805,235 V65 H720 A85,85 0 0 0 720,235 H805"/>
-      <path stroke-width="18" d="M835,65 V235"/>
-      <path stroke-width="18" d="M865,235 L940,65 L1015,235 M896,166 H984"/>
-      <path stroke-width="18" d="M1225,65 H1135 A85,85 0 0 0 1135,235 H1225"/>
-    </g>
-    <g transform="translate(560,0)">
-      <path stroke-width="11" d="M0,323 V268 L27,301 L54,268 V323 M82,268 H127 M82,268 V323 M82,323 H127 M82,296 H115 M155,323 V268 H183 A27,27 0 0 1 183,323 H155 M238,268 V323 M266,323 L293,268 L320,323"/>
-    </g>
-  </svg>
-  <h1>You have problems.<br>We have answers.</h1>
-  <div class="row">
-    <div class="url">cardiac.media</div>
-    <div class="chip">Technology consulting</div>
-  </div>
+  <div class="ghost">Cardiac</div>
+  <div class="logo"><svg class="wordmark" xmlns="http://www.w3.org/2000/svg" viewBox="359 437 2016 506" role="img"><title>Cardiac Media</title><path fill="currentColor" d="M389 467h1956v29h-1956z M389 467h29v406h-29z M2316 467h29v406h-29z M389 844h571v29h-571z M1726 844h619v29h-619z"/><path fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" d="M595.63 586.25H723.25V545H595.63C525.25 545 468 596.81 468 660.5C468 724.19 525.25 776 595.63 776H723.25V734.75H595.63C550.41 734.75 513.58 701.42 513.58 660.5C513.58 619.58 550.41 586.25 595.63 586.25Z M982.02 734.75 875.18 545 768.34 734.75 745 776H796.05L819.39 734.75L875.18 635.75L930.97 734.75L954.31 776H1005.36Z M1194.93 669.41C1194.93 669.41 1194.93 669.41 1194.93 669.41C1201.86 668.75 1208.42 667.1 1214.62 664.46C1238.32 654.56 1254.73 632.78 1254.73 607.7C1254.73 590.54 1247.07 575.03 1234.67 563.48C1222.28 552.26 1205.14 545.33 1186.18 545.33H1025V776.33H1070.58V670.07H1116.16C1132.57 670.07 1146.79 677.99 1154.82 689.87L1155.91 691.85L1180.34 735.08L1203.68 776.33H1254.73L1231.39 735.08ZM1070.58 629.15V586.58H1186.18C1194.2 586.58 1199.67 589.88 1202.58 592.52C1205.14 594.83 1209.51 600.11 1209.51 607.7C1209.51 615.95 1204.04 623.54 1195.66 626.84C1192.74 628.16 1189.46 628.82 1186.18 628.82Z M1573.89 545V776H1446.26C1411.26 776 1379.53 763.13 1356.56 742.01C1354.01 739.7 1351.45 737.39 1349.27 735.08C1330.3 714.95 1319 688.88 1319 660.5C1319 596.81 1376.25 545.33 1446.63 545.33ZM1528.67 586.58H1446.63C1401.41 586.58 1364.58 619.91 1364.58 660.83C1364.58 701.75 1401.41 735.08 1446.63 735.08H1528.67Z M1692.58 776V545H1647V776Z M1955.02 734.75 1848.18 545 1741.34 734.75 1718 776H1769.05L1792.39 734.75L1848.18 635.75L1903.97 734.75L1927.31 776H1978.36Z M2090.63 586.25H2218.26V545H2090.63C2020.25 545 1963 596.81 1963 660.5C1963 724.19 2020.25 776 2090.63 776H2218.26V734.75H2090.63C2045.41 734.75 2008.58 701.42 2008.58 660.5C2008.58 619.58 2045.41 586.25 2090.63 586.25Z M1089.41 832.75 1056.38 855.74 1023.35 832.75 1005 820V913H1023.35V853.75L1041.41 866.23L1056.38 876.73L1071.36 866.23L1089.41 853.75V913H1107.77V820Z M1199.6 836.61H1274.62V820H1199.6C1184.33 820 1172 831.29 1172 845.11V887.89C1172 901.71 1184.33 913 1199.6 913H1274.62V896.39H1199.6C1194.46 896.39 1190.2 892.54 1190.2 887.89V870.35H1256.27V853.75H1190.2V845.11C1190.2 840.46 1194.46 836.61 1199.6 836.61Z M1339 820V913H1390.38C1404.48 913 1417.25 907.82 1426.5 899.32C1427.52 898.39 1428.55 897.46 1429.43 896.53C1437.07 888.42 1441.62 877.93 1441.62 866.5C1441.62 840.86 1418.57 820.13 1390.24 820.13ZM1357.2 836.74H1390.24C1408.44 836.74 1423.27 850.16 1423.27 866.63C1423.27 883.11 1408.44 896.53 1390.24 896.53H1357.2Z M1525.35 913V820H1507V913Z M1679.42 896.39 1636.41 820 1593.4 896.39 1584 913H1604.55L1613.95 896.39L1636.41 856.54L1658.87 896.39L1668.27 913H1688.82Z"/></svg></div>
+  <h1>It just<em>works. <i></i></em></h1>
+  <div class="row"><span>cardiac.media</span><span>Technology · Systems · Media</span></div>
 </body></html>
