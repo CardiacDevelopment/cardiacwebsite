@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retirement Calculators</title>
+<meta name="description" content="Estimate how savings grow and how long a retirement balance lasts.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --card: #ffffff;
+    --text: #1b1f24;
+    --muted: #5f6b7a;
+    --border: #d9dee5;
+    --accent: #1f6feb;
+    --accent-text: #ffffff;
+    --error: #c62828;
+    --principal: #6b8f2f;
+    --contrib: #7a5ca8;
+    --interest: #2b93b5;
+    --grid: #e6e9ee;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1216;
+      --card: #181c22;
+      --text: #e7eaee;
+      --muted: #9aa5b1;
+      --border: #2c333c;
+      --accent: #4c8dff;
+      --accent-text: #0b0e12;
+      --error: #ff6b6b;
+      --principal: #9cc35a;
+      --contrib: #a98ad6;
+      --interest: #5cc1e0;
+      --grid: #262c34;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1216; --card: #181c22; --text: #e7eaee; --muted: #9aa5b1;
+    --border: #2c333c; --accent: #4c8dff; --accent-text: #0b0e12; --error: #ff6b6b;
+    --principal: #9cc35a; --contrib: #a98ad6; --interest: #5cc1e0; --grid: #262c34;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 1.5rem; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 20px; }
+
+  .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  .tab {
+    appearance: none; background: none; border: 0; color: var(--muted);
+    font: inherit; font-weight: 600; padding: 10px 14px; cursor: pointer;
+    border-bottom: 3px solid transparent; margin-bottom: -1px;
+  }
+  .tab[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 16px;
+  }
+  .card + .card { margin-top: 16px; }
+  h2 { font-size: 1.15rem; margin: 0 0 16px; }
+
+  .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+  label { display: block; font-size: .85rem; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
+  .input { position: relative; }
+  .input input {
+    width: 100%; font: inherit; color: var(--text); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; text-align: right;
+  }
+  .input.prefix input { padding-left: 26px; }
+  .input.suffix input { padding-right: 30px; }
+  .input .pre, .input .suf {
+    position: absolute; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none;
+  }
+  .input .pre { left: 12px; }
+  .input .suf { right: 12px; }
+  .input input:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: var(--accent); }
+  .field.invalid input { border-color: var(--error); }
+  .err { color: var(--error); font-size: .8rem; min-height: 1.1em; margin-top: 2px; }
+
+  .modes { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 16px; }
+  .modes label { display: flex; align-items: center; gap: 8px; color: var(--text); font-weight: 500; font-size: 1rem; margin: 0; cursor: pointer; }
+  .modes input { accent-color: var(--accent); width: 18px; height: 18px; }
+
+  .actions { margin-top: 8px; }
+  .btn {
+    font: inherit; font-weight: 600; border-radius: 8px; padding: 9px 16px; cursor: pointer;
+    background: none; color: var(--accent); border: 1px solid var(--border);
+  }
+  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .result-big { font-size: 2rem; font-weight: 700; margin: 0; font-variant-numeric: tabular-nums; }
+  .result-label { color: var(--muted); margin: 0 0 4px; font-size: .9rem; }
+  .result-text { margin: 8px 0 0; }
+  .empty { color: var(--muted); margin: 0; }
+
+  .split { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 16px 0; }
+  .stat { border-left: 4px solid; padding: 2px 0 2px 10px; }
+  .stat .k { color: var(--muted); font-size: .85rem; }
+  .stat .v { font-weight: 700; font-variant-numeric: tabular-nums; }
+  .stat.p { border-color: var(--principal); }
+  .stat.c { border-color: var(--contrib); }
+  .stat.i { border-color: var(--interest); }
+
+  .chart { width: 100%; height: auto; display: block; }
+  .chart text { fill: var(--muted); font-size: 13px; }
+  .chart .gridline { stroke: var(--grid); }
+
+  details { margin-top: 16px; }
+  summary { cursor: pointer; font-weight: 600; color: var(--accent); }
+  .table-wrap { overflow-x: auto; margin-top: 10px; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: .9rem; }
+  th, td { padding: 6px 8px; text-align: right; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--muted); font-weight: 600; }
+
+  .note { color: var(--muted); font-size: .8rem; margin-top: 24px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Retirement Calculators</h1>
+  <p class="sub">Estimate how savings grow, and how long a balance lasts in retirement.</p>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-growth" aria-controls="panel-growth" aria-selected="true">Growth</button>
+    <button class="tab" role="tab" id="tab-payout" aria-controls="panel-payout" aria-selected="false" tabindex="-1">Payout</button>
+  </div>
+
+  <!-- Growth -->
+  <section id="panel-growth" role="tabpanel" aria-labelledby="tab-growth">
+    <form class="card" id="growth-form" novalidate>
+      <h2>Investment growth</h2>
+      <div class="fields">
+        <div class="field">
+          <label for="g-rate">Annual return</label>
+          <div class="input suffix"><input id="g-rate" inputmode="decimal" value="6"><span class="suf">%</span></div>
+          <div class="err" aria-live="polite"></div>
+        </div>
+        <div class="field">
+          <label for="g-principal">Starting balance</label>
+          <div class="input prefix"><span class="pre">$</span><input id="g-principal" inputmode="decimal" placeholder="0"></div>
+          <div class="err" aria-live="polite"></div>
+        </div>
+        <div class="field">
+          <label for="g-deposit">Monthly deposit</label>
+          <div class="input prefix"><span class="pre">$</span><input id="g-deposit" inputmode="decimal" placeholder="0"></div>
+          <div class="err" aria-live="polite"></div>
+        </div>
+        <div class="field">
+          <label for="g-years">Years</label>
+          <div class="input"><input id="g-years" inputmode="numeric" placeholder="0"></div>
+          <div class="err" aria-live="polite"></div>
+        </div>
+      </div>
+      <div class="actions"><button class="btn" type="reset">Reset</button></div>
+    </form>
+
+    <div class="card" id="growth-result" aria-live="polite">
+      <p class="empty">Enter a starting balance or a monthly deposit, plus the number of years.</p>
+    </div>
+  </section>
+
+  <!-- Payout -->
+  <section id="panel-payout" role="tabpanel" aria-labelledby="tab-payout" hidden>
+    <form class="card" id="payout-form" novalidate>
+      <h2>Withdrawal schedule</h2>
+      <div class="modes" role="radiogroup" aria-label="What do you want to find?">
+        <label><input type="radio" name="mode" value="years" checked> How long will it last?</label>
+        <label><input type="radio" name="mode" value="amount"> How much can I withdraw?</label>
+      </div>
+      <div class="fields">
+        <div class="field">
+          <label for="p-rate">Annual return</label>
+          <div class="input suffix"><input id="p-rate" inputmode="decimal" value="4"><span class="suf">%</span></div>
+          <div class="err" aria-live="polite"></div>
+        </div>
+        <div class="field">
+          <label for="p-balance">Retirement balance</label>
+          <div class="input prefix"><span class="pre">$</span><input id="p-balance" inputmode="decimal" placeholder="0"></div>
+          <div class="err" aria-live="polite"></div>
+        </div>
+        <div class="field" data-mode="years">
+          <label for="p-withdrawal">Monthly withdrawal</label>
+          <div class="input prefix"><span class="pre">$</span><input id="p-withdrawal" inputmode="decimal" placeholder="0"></div>
+          <div class="err" aria-live="polite"></div>
+        </div>
+        <div class="field" data-mode="amount" hidden>
+          <label for="p-years">Payout years</label>
+          <div class="input"><input id="p-years" inputmode="numeric" placeholder="0"></div>
+          <div class="err" aria-live="polite"></div>
+        </div>
+      </div>
+      <div class="actions"><button class="btn" type="reset">Reset</button></div>
+    </form>
+
+    <div class="card" id="payout-result" aria-live="polite">
+      <p class="empty">Enter a balance and a monthly withdrawal.</p>
+    </div>
+  </section>
+
+  <p class="note">
+    Assumes the return compounds monthly, deposits and withdrawals happen at the end of each month,
+    and the rate stays fixed. Ignores taxes, fees and inflation. For illustration only; not financial advice.
+  </p>
+</main>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const usd = (n, d = 0) => '$' + n.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+
+  // ---------- Math (pure, testable) ----------
+  // Future value with monthly compounding and end of month deposits.
+  function futureValue({ ratePct, principal, deposit, years }) {
+    const r = ratePct / 100 / 12;
+    const rows = [];
+    let bal = principal;
+    for (let y = 1; y <= years; y++) {
+      for (let m = 0; m < 12; m++) bal = bal * (1 + r) + deposit;
+      const contributed = deposit * 12 * y;
+      rows.push({ year: y, principal, contributed, interest: bal - principal - contributed, balance: bal });
+    }
+    return rows;
+  }
+
+  // Months until the balance runs out. Returns Infinity when interest covers the withdrawal.
+  function monthsToDeplete({ ratePct, balance, withdrawal }) {
+    const r = ratePct / 100 / 12;
+    if (r === 0) return balance / withdrawal;
+    if (withdrawal <= balance * r) return Infinity;
+    return -Math.log(1 - (balance * r) / withdrawal) / Math.log(1 + r);
+  }
+
+  // Level monthly withdrawal that empties the balance in exactly `years`.
+  function monthlyPayout({ ratePct, balance, years }) {
+    const r = ratePct / 100 / 12;
+    const n = years * 12;
+    if (r === 0) return balance / n;
+    return (balance * r) / (1 - Math.pow(1 + r, -n));
+  }
+
+  // ---------- Input parsing and validation ----------
+  function parse(el) {
+    const raw = el.value.replace(/[$,%\s]/g, '');
+    if (raw === '') return null;
+    const n = Number(raw);
+    return Number.isFinite(n) ? n : NaN;
+  }
+
+  function check(el, rules) {
+    const field = el.closest('.field');
+    const errEl = field.querySelector('.err');
+    const v = parse(el);
+    let msg = '';
+    for (const [test, text] of rules) { if (!test(v)) { msg = text; break; } }
+    field.classList.toggle('invalid', !!msg && el.value !== '');
+    errEl.textContent = el.value === '' ? '' : msg;
+    return msg ? null : v;
+  }
+
+  const num = (v) => v !== null && !Number.isNaN(v);
+  const rateRules = [
+    [num, 'Enter a rate'],
+    [(v) => v >= 0, 'Rate cannot be negative'],
+    [(v) => v <= 30, 'Use a rate of 30% or less'],
+  ];
+  const moneyRules = (max, label) => [
+    [num, 'Enter an amount'],
+    [(v) => v >= 0, 'Amount cannot be negative'],
+    [(v) => v <= max, `Keep ${label} at ${usd(max)} or less`],
+  ];
+  const yearRules = (max) => [
+    [num, 'Enter years'],
+    [(v) => Number.isInteger(v), 'Use whole years'],
+    [(v) => v >= 1, 'At least 1 year'],
+    [(v) => v <= max, `${max} years or fewer`],
+  ];
+
+  // ---------- Growth tab ----------
+  function renderGrowth() {
+    const ratePct = check($('g-rate'), rateRules);
+    const principal = $('g-principal').value === '' ? 0 : check($('g-principal'), moneyRules(1e8, 'the balance'));
+    const deposit = $('g-deposit').value === '' ? 0 : check($('g-deposit'), moneyRules(1e6, 'the deposit'));
+    const years = check($('g-years'), yearRules(70));
+    const out = $('growth-result');
+
+    if (ratePct === null || principal === null || deposit === null || years === null || (principal === 0 && deposit === 0)) {
+      out.innerHTML = '<p class="empty">Enter a starting balance or a monthly deposit, plus the number of years.</p>';
+      return;
+    }
+
+    const rows = futureValue({ ratePct, principal, deposit, years });
+    const last = rows[rows.length - 1];
+    out.innerHTML = `
+      <p class="result-label">Value after ${years} ${years === 1 ? 'year' : 'years'}</p>
+      <p class="result-big">${usd(last.balance)}</p>
+      <div class="split">
+        <div class="stat p"><div class="k">Starting balance</div><div class="v">${usd(principal)}</div></div>
+        <div class="stat c"><div class="k">Your deposits</div><div class="v">${usd(last.contributed)}</div></div>
+        <div class="stat i"><div class="k">Growth</div><div class="v">${usd(last.interest)}</div></div>
+      </div>
+      ${growthChart(rows)}
+      <details>
+        <summary>Year by year</summary>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Year</th><th>Deposits to date</th><th>Growth to date</th><th>Balance</th></tr></thead>
+          <tbody>${rows.map((r) => `<tr><td>${r.year}</td><td>${usd(r.contributed)}</td><td>${usd(r.interest)}</td><td>${usd(r.balance)}</td></tr>`).join('')}</tbody>
+        </table></div>
+      </details>`;
+  }
+
+  function niceMax(v) {
+    if (v <= 0) return 1;
+    const p = Math.pow(10, Math.floor(Math.log10(v)));
+    for (const m of [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10]) if (m * p >= v) return m * p;
+    return 10 * p;
+  }
+  function shortUsd(v) {
+    if (v >= 1e6) return '$' + +(v / 1e6).toFixed(1) + 'M';
+    if (v >= 1e3) return '$' + +(v / 1e3).toFixed(0) + 'K';
+    return '$' + Math.round(v);
+  }
+
+  // Stacked bars per year: starting balance, deposits, growth.
+  function growthChart(rows) {
+    const W = 420, H = 230, L = 52, R = 6, T = 10, B = 26;
+    const pw = W - L - R, ph = H - T - B;
+    const max = niceMax(rows[rows.length - 1].balance);
+    const y = (v) => T + ph - (v / max) * ph;
+    const slot = pw / rows.length;
+    const bw = Math.max(1, slot * 0.72);
+    const every = Math.ceil(rows.length / 6);
+
+    let g = '';
+    for (let i = 0; i <= 4; i++) {
+      const v = (max / 4) * i, yy = y(v);
+      g += `<line class="gridline" x1="${L}" x2="${W - R}" y1="${yy}" y2="${yy}"/>`;
+      g += `<text x="${L - 6}" y="${yy + 4}" text-anchor="end">${shortUsd(v)}</text>`;
+    }
+    rows.forEach((r, i) => {
+      const x = L + i * slot + (slot - bw) / 2;
+      const parts = [[r.principal, 'var(--principal)'], [r.contributed, 'var(--contrib)'], [Math.max(0, r.interest), 'var(--interest)']];
+      let base = 0;
+      for (const [v, c] of parts) {
+        if (v <= 0) continue;
+        g += `<rect x="${x}" y="${y(base + v)}" width="${bw}" height="${y(base) - y(base + v)}" fill="${c}"/>`;
+        base += v;
+      }
+      if (r.year === 1 || r.year % every === 0) g += `<text x="${x + bw / 2}" y="${H - 8}" text-anchor="middle">${r.year}</text>`;
+    });
+    return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Balance by year, split into starting balance, deposits and growth">${g}</svg>`;
+  }
+
+  // ---------- Payout tab ----------
+  const mode = () => document.querySelector('input[name="mode"]:checked').value;
+
+  function renderPayout() {
+    const m = mode();
+    document.querySelectorAll('#payout-form [data-mode]').forEach((el) => { el.hidden = el.dataset.mode !== m; });
+
+    const ratePct = check($('p-rate'), rateRules);
+    const balance = check($('p-balance'), moneyRules(1e8, 'the balance'));
+    const out = $('payout-result');
+    const empty = (t) => { out.innerHTML = `<p class="empty">${t}</p>`; };
+
+    if (m === 'years') {
+      const withdrawal = check($('p-withdrawal'), [...moneyRules(1e6, 'the withdrawal'), [(v) => v > 0, 'Enter a withdrawal above $0']]);
+      if (ratePct === null || balance === null || withdrawal === null || balance === 0) return empty('Enter a balance and a monthly withdrawal.');
+      const months = monthsToDeplete({ ratePct, balance, withdrawal });
+      if (!Number.isFinite(months)) {
+        const interest = balance * ratePct / 100 / 12;
+        out.innerHTML = `
+          <p class="result-label">How long it lasts</p>
+          <p class="result-big">Indefinitely</p>
+          <p class="result-text">At ${ratePct}%, ${usd(balance)} earns about ${usd(interest)} a month, which covers a ${usd(withdrawal)} withdrawal without shrinking the balance.</p>`;
+        return;
+      }
+      const whole = Math.floor(months + 1e-9);
+      const yrs = Math.floor(whole / 12), mos = whole % 12;
+      const label = [yrs && `${yrs} ${yrs === 1 ? 'year' : 'years'}`, mos && `${mos} ${mos === 1 ? 'month' : 'months'}`].filter(Boolean).join(', ') || 'Less than 1 month';
+      out.innerHTML = `
+        <p class="result-label">How long it lasts</p>
+        <p class="result-big">${label}</p>
+        <p class="result-text">${usd(balance)} supports monthly withdrawals of ${usd(withdrawal)} for about ${(months / 12).toFixed(1)} years, paying out about ${usd(withdrawal * months)} in total.</p>`;
+    } else {
+      const years = check($('p-years'), yearRules(60));
+      if (ratePct === null || balance === null || years === null || balance === 0) return empty('Enter a balance and the number of payout years.');
+      const amt = monthlyPayout({ ratePct, balance, years });
+      out.innerHTML = `
+        <p class="result-label">Monthly withdrawal</p>
+        <p class="result-big">${usd(amt, 2)}</p>
+        <p class="result-text">${usd(balance)} supports monthly withdrawals of ${usd(amt, 2)} for ${years} ${years === 1 ? 'year' : 'years'}, paying out ${usd(amt * years * 12)} in total.</p>`;
+    }
+  }
+
+  // ---------- Wiring ----------
+  const growthForm = $('growth-form'), payoutForm = $('payout-form');
+  growthForm.addEventListener('input', renderGrowth);
+  payoutForm.addEventListener('input', renderPayout);
+  payoutForm.addEventListener('change', renderPayout);
+  for (const f of [growthForm, payoutForm]) {
+    f.addEventListener('submit', (e) => e.preventDefault());
+    f.addEventListener('reset', () => setTimeout(() => {
+      f.querySelectorAll('.field').forEach((el) => { el.classList.remove('invalid'); el.querySelector('.err').textContent = ''; });
+      f === growthForm ? renderGrowth() : renderPayout();
+    }));
+  }
+
+  const tabs = [...document.querySelectorAll('.tab')];
+  function select(tab) {
+    tabs.forEach((t) => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      $(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(t));
+    t.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      select(next); next.focus();
+    });
+  });
+
+  renderGrowth();
+  renderPayout();
+})();
+</script>
+</body>
+</html>
